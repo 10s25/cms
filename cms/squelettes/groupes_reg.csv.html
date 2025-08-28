@@ -1,9 +1,0 @@
-#HTTP_HEADER{Content-Type: text/csv; charset=#CHARSET}[(#REM)
-
-Fichier CSV des groupes régionaux français
-
-]<B_reg>nom,rs_icon,url,latitude,longitude
-<BOUCLE_reg(RUBRIQUES){id_parent=6}>[(#SET{nom_region,#TITRE})
-]<BOUCLE_sites(SITES){id_rubrique}>[(#SET{desc,#DESCRIPTIF*|explode{','}})
-]#GET{nom_region},[(#GET{desc}|table_valeur{0})],#URL_SITE,[(#GET{desc}|table_valeur{1})],[(#GET{desc}|table_valeur{2})]</BOUCLE_sites>
-</BOUCLE_reg></B_reg>Empty<//B_reg>
