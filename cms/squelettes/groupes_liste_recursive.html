@@ -1,0 +1,17 @@
+<B_groupes>
+<ul>
+<BOUCLE_groupes(RUBRIQUES){id_parent}>
+	<li>
+	<p class="font-yellow">#TITRE</p>
+		<B_sites>
+		<ul>
+		<BOUCLE_sites(SITES){id_rubrique}>[(#SET{rs_icon,#DESCRIPTIF*|trim|explode{','}|table_valeur{0}})]
+			<li class="[(#GET{rs_icon}|trim)]"><a href="#URL_SITE" target="_blank" rel="me">[(#GET{rs_icon}trim|rs_from_icon)]</a></li>
+		</BOUCLE_sites>
+		</ul>
+	</B_sites>
+	<BOUCLE_sous-groupes(BOUCLE_groupes) />
+	</li>
+</BOUCLE_groupes>
+</ul>
+</B_groupes>

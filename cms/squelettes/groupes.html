@@ -1,0 +1,15 @@
+[(#REM)
+
+Listes récursives des groupes, triée
+
+Groupes géolocalisés
+
+]<BOUCLE_sel_geo(RUBRIQUES){id_rubrique=5}>
+<INCLURE(groupes_liste_recursive){id_rubrique}>
+</BOUCLE_sel_geo>[(#REM)
+
+Groupes thématiques
+
+]<BOUCLE_sel_thematiques(RUBRIQUES){id_rubrique=4}>
+<INCLURE(groupes_liste_recursive){id_rubrique}>
+</BOUCLE_sel_thematiques>

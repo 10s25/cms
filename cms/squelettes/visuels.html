@@ -1,0 +1,57 @@
+#SET{keywords,'Bloquons tout, Indignons-nous, 10 Septembre, 10 Septembre 2025'}
+#SET{rs_titre,'Les sans dents ont du talent - Visuels libres à diffuser'}
+#SET{rs_desc,'Ces visuels sont libres et faits pour être partagés: réseaux sociaux, messageries, affichage local…'}
+<INCLURE{fond=head}
+{css=/local/visuels.css}
+{keywords=#GET{keywords}}
+{rs_titre=#GET{rs_titre}}
+{rs_desc=#GET{rs_desc}}>
+<body>
+	<header id="banniere">
+		<a href="/" title="Accueil"><img id="logo_left" src="/cms/IMG/[(#LOGO_SITE_SPIP**)]" alt="[(#URL_SITE_SPIP|substr{0,-4})]"></a>
+		<div>
+			<h1 class="font-yellow">Les sans-dents ont du talent</h1>
+		</div>
+	</header>
+	<div id="menu_top">
+		<ul>
+			<li><a href="/">&#8962;</a></li>
+			<INCLURE{fond=menu}>
+			<li><a href="/global/sites.html">Sites</a></li>
+		</ul>
+	</div>
+	<main id="center">
+		<div id="sidebar">
+			<div id="rejoindre" class="background-red">PARTICIPE</div>
+			<BOUCLE_article_visuels(articles){tous}{titre=Visuels}>#SET{id_article, #ID_ARTICLE}
+				#TEXTE
+			</BOUCLE_article_visuels>
+			<section>
+				<B_slider>
+				<div class="slider">
+					<BOUCLE_slider(DOCUMENTS){mode=image}{tous}{titre_mot=Slide}>
+					<div class="slide"><img src="#URL_DOCUMENT" alt="#ALT" /></div>
+					</BOUCLE_slider>
+				</div>
+				</B_slider>
+			</section>
+			</B_article3>
+		</div>
+
+		<div id="content">
+			<section class="visuels">
+				<B_visuels>
+				[<nav role="navigation" class="pagination">(#PAGINATION)</nav>]
+				<div class="grid">
+				<BOUCLE_visuels(DOCUMENTS){mode=image}{tous}{id_article=#GET{id_article}}{pagination}>
+					<div class="grid-item">
+						<a href="#URL_DOCUMENT" class="mediabox" rel="visuels"><img class="visuel" src="#URL_DOCUMENT" alt="#ALT"></a>
+					</div>
+				</BOUCLE_visuels>
+				</div>
+				</B_visuels>
+			</section>
+		</div>
+	</main>
+</body>
+</html>
