@@ -1,7 +1,0 @@
-#HTTP_HEADER{Content-Type: text/csv; charset=#CHARSET}[(#REM)
-
-Fichier CSV des groupes départementaux français
-
-]<B_niv>nom,rs_icon,url,latitude,longitude
-<BOUCLE_niv(SITES){titre_mot=#NIVEAU}>[(#SET{desc,#DESCRIPTIF*|trim|explode{','}})
-]<BOUCLE_nom_niv(RUBRIQUES){id_rubrique}>#TITRE</BOUCLE_nom_niv>,[(#GET{desc}|table_valeur{0})],#URL_SITE,[(#GET{desc}|table_valeur{1})],[(#GET{desc}|table_valeur{2})]</BOUCLE_niv></B_niv>Empty<//B_niv>
