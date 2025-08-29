@@ -1,0 +1,61 @@
+#CACHE{0}
+
+[<div>Session: (#SESSION{id_auteur}) / Statut: (#SESSION{statut})</div>]
+
+<INCLURE{fond=edition-geoliens-recursive,id_rubrique=5}>
+
+<style>
+  .site-info-form .editer_texte,
+  .site-info-form .editer_mots,
+  .site-info-form .editer_logo,
+  .site-info-form .editer_parent,
+  .site-info-form .rubrique_parent,
+  .site-info-form .editer_extra,
+
+  .rub-info-form .editer_parent,
+
+  .territoire-info-form .editer_groupe_mot,
+  .territoire-info-form .editer_parent,
+  .territoire-info-form .editer_texte,
+  .territoire-info-form .editer_descriptif,
+
+  .typedesite-info-form .editer_groupe_mot,
+  .typedesite-info-form .editer_parent,
+  .typedesite-info-form .editer_texte,
+  .typedesite-info-form .editer_descriptif
+
+  { display:none; }
+
+  .site-info p { display: inline; }
+</style>
+
+<script>
+  // Empêche l'init multiple quand le squelette est inclus récursivement
+  if (!window.__editionRecursiveDialogsInit) {
+    window.__editionRecursiveDialogsInit = true;
+
+    const closeAll = () => {
+      document.querySelectorAll('dialog[open]').forEach(d => {
+        try { d.close(); } catch(e) { d.open = false; }
+      });
+    };
+
+    const openDialogById = (id) => {
+      const dlg = document.getElementById(id);
+      if (!dlg) return;
+      closeAll();
+      try { dlg.showModal(); } catch(e) { dlg.open = true; }
+    };
+
+    // Délégation d'événements (marche aussi pour le HTML ajouté récursivement)
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-dlg]');
+      if (!btn) return;
+      const dlgId = btn.getAttribute('data-dlg');
+      if (dlgId) openDialogById(dlgId);
+    });
+
+    // Fermer tous les dialogs à la navigation (par prudence)
+    window.addEventListener('pageshow', closeAll);
+  }
+</script>

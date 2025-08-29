@@ -1,0 +1,49 @@
+#CACHE{0}
+<BOUCLE_rub(RUBRIQUES){id_rubrique}{tout}>
+  <button type="button" class="rub-info form-trg" data-dlg="dlg-rub-#ID_RUBRIQUE" style="all:unset;cursor:pointer;">
+    <b>#TITRE</b>
+  </button>
+  <dialog id="dlg-rub-#ID_RUBRIQUE" class="rub-info-form">
+    #FORMULAIRE_EDITER_RUBRIQUE{#ID_RUBRIQUE,0,#SELF}
+  </dialog>
+  <div style="margin-left: 2em;">
+    <BOUCLE_sites(SITES){id_rubrique}{par num nom_site, nom_site}>
+      <div id="site-#ID_SYNDIC" class="site-row">
+        <button type="button" class="site-info form-trg" data-dlg="dlg-site-#ID_SYNDIC" style="all:unset;cursor:pointer;">
+          <b>⇒ #TITRE</b> 🔗 #URL_SITE 📍 #DESCRIPTIF
+        </button>
+        <dialog id="dlg-site-#ID_SYNDIC" class="site-info-form">
+          #FORMULAIRE_EDITER_SITE{#ID_SYNDIC,0,#SELF}
+        </dialog>
+
+        <BOUCLE_mot_territoire(MOTS){id_syndic}{id_groupe=2}{0,1}>
+          <button type="button" class="territoire-info form-trg" data-dlg="dlg-territoire-#ID_SYNDIC" style="all:unset;cursor:pointer;">
+            🗺 #TITRE
+          </button>
+          <dialog id="dlg-territoire-#ID_SYNDIC" class="territoire-info-form">
+            #FORMULAIRE_EDITER_MOT{#ID_MOT, #ID_GROUPE, #SELF}
+          </dialog>
+        </BOUCLE_mot_territoire>
+
+        <BOUCLE_mot_typedesite(MOTS){id_syndic}{id_groupe=4}{0,1}>
+          <button type="button" class="typedesite-info form-trg" data-dlg="dlg-typedesite-#ID_SYNDIC" style="all:unset;cursor:pointer;">
+            💬 #TITRE
+          </button>
+          <dialog id="dlg-typedesite-#ID_SYNDIC" class="typedesite-info-form">
+            <style>
+            </style>
+            #FORMULAIRE_EDITER_MOT{#ID_MOT, #ID_GROUPE, #SELF}
+          </dialog>
+        </BOUCLE_mot_typedesite>
+      </div>
+    </BOUCLE_sites>
+  </div>
+
+  <div style="margin-left: 2em;">
+    <!-- Sous-rubriques : récursion -->
+    <BOUCLE_ssrub(RUBRIQUES){id_parent}{par num titre, titre}>
+      <INCLURE{fond=edition-geoliens-recursive,id_rubrique=#ID_RUBRIQUE}>
+    </BOUCLE_ssrub>
+  </div>
+
+</BOUCLE_rub>
