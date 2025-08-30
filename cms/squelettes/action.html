@@ -1,0 +1,68 @@
+#SET{keywords,'Bloquons tout, Indignons-nous, 10 Septembre, 10 Septembre 2025'}
+#SET{rs_titre,'Actions annoncées'}
+#SET{rs_desc,'Actions annoncées par le mouvement 10s25'}
+<INCLURE{fond=head}
+{css=/local/visuels.css}
+{keywords=#GET{keywords}}
+{rs_titre=#GET{rs_titre}}
+{rs_desc=#GET{rs_desc}}>
+<body>
+	<header id="banniere">
+		<a href="/" title="Accueil"><img id="logo_left" src="/cms/IMG/[(#LOGO_SITE_SPIP**)]" alt="[(#URL_SITE_SPIP|substr{0,-4})]"></a>
+		<div>
+			<h1 class="font-yellow">Action annoncée</h1>
+		</div>
+	</header>
+	<div id="menu_top">
+		<ul>
+			<li><a href="/">&#8962;</a></li>
+			<INCLURE{fond=menu}>
+			<li><a href="/global/sites.html">Sites</a></li>
+		</ul>
+	</div>
+	<main id="center">
+		<div id="sidebar">
+			<div id="rejoindre" class="background-red">VISUELS</div>
+			<div>
+			<p>Des <a href="/cms/?page=visuels">VISUELS<a> pour l'action !
+			</p> 
+			</div>
+			<section>
+				<B_slider>
+				<div class="slider">
+					<BOUCLE_slider(DOCUMENTS){mode=image}{tous}{titre_mot=Slide}>
+					<div class="slide"><img src="#URL_DOCUMENT" alt="#ALT" /></div>
+					</BOUCLE_slider>
+				</div>
+				</B_slider>
+			</section>
+			</B_article3>
+		</div>
+
+		<div id="content">
+			<B_action>
+			<BOUCLE_action(ARTICLES){id_article}>
+			<section class="postit background-yellow">
+				<div class="postit-content font-black">
+					<h2>#TITRE</h2>
+					<h5>#DATE</h5>
+					#TEXTE
+				</div>
+			</section>
+			<div id="carte"></div>
+			</BOUCLE_action>
+			</B_action>
+			<section class="postit background-yellow">
+				<div class="postit-content font-black">
+					<h5>Pas d'action n°[(#ENV{id_article}|sinon{ inconnu})]</h5>
+				</div>
+			</section>
+			<//B_action>
+		</div>
+	</main>
+</body>
+</html>
+
+
+
+
