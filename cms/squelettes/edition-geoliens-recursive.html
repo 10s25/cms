@@ -8,34 +8,96 @@
   </dialog>
   <div style="margin-left: 2em;">
     <BOUCLE_sites(SITES){id_rubrique}{par num nom_site, nom_site}>
-      <div id="site-#ID_SYNDIC" class="site-row">
-        <button type="button" class="site-info form-trg" data-dlg="dlg-site-#ID_SYNDIC" style="all:unset;cursor:pointer;">
-          <b>⇒ #TITRE</b> 🔗 #URL_SITE 📍 #DESCRIPTIF
-        </button>
-        <dialog id="dlg-site-#ID_SYNDIC" class="site-info-form">
-          #FORMULAIRE_EDITER_SITE{#ID_SYNDIC,0,#SELF}
-        </dialog>
-
-        <BOUCLE_mot_territoire(MOTS){id_syndic}{id_groupe=2}{0,1}>
-          <button type="button" class="territoire-info form-trg" data-dlg="dlg-territoire-#ID_SYNDIC" style="all:unset;cursor:pointer;">
-            🗺 #TITRE
-          </button>
-          <dialog id="dlg-territoire-#ID_SYNDIC" class="territoire-info-form">
-            #FORMULAIRE_EDITER_MOT{#ID_MOT, #ID_GROUPE, #SELF}
-          </dialog>
-        </BOUCLE_mot_territoire>
-
-        <BOUCLE_mot_typedesite(MOTS){id_syndic}{id_groupe=4}{0,1}>
-          <button type="button" class="typedesite-info form-trg" data-dlg="dlg-typedesite-#ID_SYNDIC" style="all:unset;cursor:pointer;">
-            💬 #TITRE
-          </button>
-          <dialog id="dlg-typedesite-#ID_SYNDIC" class="typedesite-info-form">
-            <style>
-            </style>
-            #FORMULAIRE_EDITER_MOT{#ID_MOT, #ID_GROUPE, #SELF}
-          </dialog>
-        </BOUCLE_mot_typedesite>
+      <div style="display:grid; grid-template-columns: 2fr 4fr 1fr 1fr 1fr; gap: 0.5em; align-items: center;" data-dlg="dlg-site-#ID_SYNDIC">
+        <b>#NOM_SITE</b>
+        <span>#URL_SITE</span>
+        <span>
+          [(#DESCRIPTIF|textebrut|explode{','}|table_valeur{0}|trim)]<br/>
+          [(#DESCRIPTIF|textebrut|explode{','}|table_valeur{1}|trim)]
+        </span>
+        <span>
+          #SET{mot_territoire_id, ''}
+          <BOUCLE_mot_territoire_1(MOTS){id_syndic}{id_groupe=2}{0,1}>
+            #SET{mot_territoire_id, #ID_MOT}
+            #TITRE
+          </BOUCLE_mot_territoire_1>
+            Pas de territoire !
+          <//B_mot_territoire_1>
+        </span>
+        <span>
+          #SET{mot_typesite_id, ''}
+          <BOUCLE_mot_typesite_1(MOTS){id_syndic}{id_groupe=4}{0,1}>
+            #SET{mot_typesite_id, #ID_MOT}
+            #TITRE
+          </BOUCLE_mot_typesite_1>
+            Pas de type !
+          <//B_mot_typesite_1>
+        </span>
       </div>
+
+      <dialog id="dlg-site-#ID_SYNDIC" style="width: 800px;" class="site-info-form">
+        <form style="display:grid;grid-template-columns: max-content 1fr; gap: 0.5em; align-items: center;"
+              action="[(#URL_ACTION_AUTEUR{maj_site,#ID_SYNDIC,#SELF|parametre_url{maj,ok}|parametre_url{site,#ID_SYNDIC}})]"
+              method="post">
+          <label>Nom du site</label>
+          <input type="text" name="nom_site" value="#NOM_SITE">
+
+          <label>URL du site</label>
+          <input type="url" name="url_site" value="#URL_SITE">
+
+          <div class="geo-wrap" style="grid-column: span 2;">
+            <!-- Carte à gauche -->
+            <div id="map-site-#ID_SYNDIC"
+                class="leaflet-map"
+                data-lat="[(#DESCRIPTIF|textebrut|explode{','}|table_valeur{0}|trim)]"
+                data-lon="[(#DESCRIPTIF|textebrut|explode{','}|table_valeur{1}|trim)]">
+            </div>
+
+            <!-- Panneau recherche à droite (lié à la bonne carte via data-map) -->
+            <div class="geo-panel" data-map="map-site-#ID_SYNDIC">
+              <div class="geo-searchbar" style="display:flex; gap:.5em; margin-bottom:.5rem">
+                <input class="geo-search" data-map="map-site-#ID_SYNDIC" value="[(#TITRE|attribut_html)]"
+                      type="search" placeholder="Rechercher une adresse ou un lieu…" style="flex:1">
+                <!--button class="geo-clear" data-map="map-site-#ID_SYNDIC" type="button" aria-label="Effacer">✖</button-->
+              </div>
+
+              <div class="geo-results" data-map="map-site-#ID_SYNDIC" hidden></div>
+
+              <small style="margin-top:.5rem; color:#666">
+                Clique sur la carte, déplace le marqueur ou utilise la recherche.
+              </small>
+            </div>
+          </div>
+
+          <label>Latitude</label>
+          <input type="text" name="lat_site" value="[(#DESCRIPTIF|textebrut|explode{','}|table_valeur{0}|trim)]">
+
+          <label>Longitude</label>
+          <input type="text" name="long_site" value="[(#DESCRIPTIF|textebrut|explode{','}|table_valeur{1}|trim)]">
+
+          <label>Territoire</label>
+          <select name="territoire_site">
+            <option value="">Pas de territoire !</option>
+            <BOUCLE_groupmot_territoire(MOTS){id_groupe=2}{par titre}>
+              <option value="#ID_MOT" [(#ID_MOT|=={#GET{mot_territoire_id}}|oui) selected="selected"]>#TITRE</option>
+            </BOUCLE_groupmot_territoire>
+          </select>
+
+          <label>Type de site</label>
+          <select name="typesite_site">
+            <option value="">Pas de type !</option>
+            <BOUCLE_groupmot_typesite(MOTS){id_groupe=4}{par titre}>
+              <option value="#ID_MOT" [(#ID_MOT|=={#GET{mot_typesite_id}}|oui) selected="selected"]>#TITRE</option>
+            </BOUCLE_groupmot_typesite>
+          </select>
+
+          <!-- pour les bouton on fais un div flex sur les 2 column puis on les met a50% -->
+          <div style="grid-column: span 2; display:flex; gap: 0.5em">
+            <button class="close-all-dlg" type="button" value="Annuler" style="flex: 1;">Annuler</button>
+            <button type="submit" value="Enregistrer" style="flex: 1;">Enregistrer</button>
+          </div>
+        </form>
+      </dialog>
     </BOUCLE_sites>
   </div>
 
