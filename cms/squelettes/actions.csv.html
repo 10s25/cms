@@ -1,0 +1,12 @@
+[(#REM)
+
+Fichier CSV des actions annoncées
+
+]<B_types_actions>nom,rs_icon,url,latitude,longitude
+<BOUCLE_types_actions(MOTS){id_groupe=3}>[
+(#SET{type_action,#TITRE})][
+(#SET{rs_icon,#DESCRIPTIF*})
+]<BOUCLE_actions(ARTICLES){id_mot}>[
+(#SET{desc,#DESCRIPTIF*|trim|explode{','}})
+]["(#TITRE*)"],[(#GET{rs_icon}|trim|sinon{action})],'/cms/?page=action&id_article=#ID_ARTICLE',[(#GET{desc}|table_valeur{0}|sinon{0})],[(#GET{desc}|table_valeur{1}|sinon{0})]</BOUCLE_actions>
+</BOUCLE_types_actions></B_types_actions>Mots-clés du groupe 3 non définis<//B_types_actions>
