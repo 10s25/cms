@@ -8,16 +8,14 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
 function action_ajt_geolieu_dist(){
 
     // 1) Sécuriser et récupérer l'argument (id de la rubrique parente)
+  $redirect = _request('redirect');
     $securiser_action = charger_fonction('securiser_action', 'inc');
     $id_parent = intval($securiser_action());
-
-    // URL de retour (posée par #URL_ACTION_AUTEUR en 3e param)
-    $redirect = _request('redirect');
 
     // 2) Vérifier autorisations
     include_spip('inc/autoriser');
     if (!$id_parent || !autoriser('creer', 'rubrique', $id_parent)) {
-        // Pas autorisé → on repart sans rien faire
+        $redirect = parametre_url($redirect, 'err', 'manque_droits');
         include_spip('inc/headers');
         redirige_par_entete($redirect);
         exit;
@@ -44,6 +42,7 @@ function action_ajt_geolieu_dist(){
         $redirect = parametre_url($redirect, 'new', $id_rubrique_new);
     }
 
+    $redirect = parametre_url($redirect, 'maj', 'ok');
     include_spip('inc/headers');
     redirige_par_entete($redirect);
 }

@@ -22,6 +22,7 @@ function action_ajt_geolien_dist(){
   $ok = autoriser('creersitedans', 'rubrique', $id_rubrique);
   if (!$ok) $ok = autoriser('creer', 'site', $id_rubrique);
   if (!$ok || !$id_rubrique) {
+    $redirect = parametre_url($redirect, 'err', 'manque_droits');
     include_spip('inc/headers');
     redirige_par_entete($redirect);
     exit;
@@ -64,13 +65,21 @@ function action_ajt_geolien_dist(){
     exit;
   }
 
+  if (!$id_mot_typesite) {
+    // On renvoie une erreur ciblée ; la page pourra l'afficher
+    $redirect = parametre_url($redirect, 'err', 'manque_type_site');
+    include_spip('inc/headers');
+    redirige_par_entete($redirect);
+    exit;
+  }
+
   if ($id_mot_territoire) {
     // Lat/lon obligatoires
     $coords_exists = $lat !== null && $lon !== null;
     if (!$coords_exists) {
       include_spip('inc/filtres'); // parametre_url()
       // On renvoie une erreur ciblée ; la page pourra l'afficher
-      $redirect = parametre_url($redirect, 'err', 'manque_coords');
+      $redirect = parametre_url($redirect, 'err', 'manque_coords_site');
       include_spip('inc/headers');
       redirige_par_entete($redirect);
       exit;
@@ -79,7 +88,7 @@ function action_ajt_geolien_dist(){
     // Si pas de territoire, lat/lon interdits
     if ($lat !== null || $lon !== null) {
       // On renvoie une erreur ciblée ; la page pourra l'afficher
-      $redirect = parametre_url($redirect, 'err', 'coords_interdits');
+      $redirect = parametre_url($redirect, 'err', 'interdits_coords_site');
       include_spip('inc/headers');
       redirige_par_entete($redirect);
       exit;
@@ -91,7 +100,7 @@ function action_ajt_geolien_dist(){
         // lat et lon doivent exister tous les deux
         include_spip('inc/filtres'); // parametre_url()
         // On renvoie une erreur ciblée ; la page pourra l'afficher
-        $redirect = parametre_url($redirect, 'err', 'manque_longitude');
+        $redirect = parametre_url($redirect, 'err', 'manque_longitude_site');
         include_spip('inc/headers');
         redirige_par_entete($redirect);
         exit;
@@ -99,7 +108,7 @@ function action_ajt_geolien_dist(){
       if (!($lat >= -90 && $lat <= 90)) {
         // Lat doit etre dans les bornes
         // On renvoie une erreur ciblée ; la page pourra l'afficher
-        $redirect = parametre_url($redirect, 'err', 'invalide_latitude');
+        $redirect = parametre_url($redirect, 'err', 'invalide_latitude_site');
         include_spip('inc/headers');
         redirige_par_entete($redirect);
         exit;
@@ -111,7 +120,7 @@ function action_ajt_geolien_dist(){
         // lat et lon doivent exister tous les deux
         include_spip('inc/filtres'); // parametre_url()
         // On renvoie une erreur ciblée ; la page pourra l'afficher
-        $redirect = parametre_url($redirect, 'err', 'manque_latitude');
+        $redirect = parametre_url($redirect, 'err', 'manque_latitude_site');
         include_spip('inc/headers');
         redirige_par_entete($redirect);
         exit;
@@ -119,7 +128,7 @@ function action_ajt_geolien_dist(){
       if (!($lon >= -180 && $lon <= 180)) {
         // Lat doit etre dans les bornes
         // On renvoie une erreur ciblée ; la page pourra l'afficher
-        $redirect = parametre_url($redirect, 'err', 'invalide_longitude');
+        $redirect = parametre_url($redirect, 'err', 'invalide_longitude_site');
         include_spip('inc/headers');
         redirige_par_entete($redirect);
         exit;
@@ -165,6 +174,8 @@ function action_ajt_geolien_dist(){
   if ($id_syndic) {
     $redirect = parametre_url($redirect, 'new', $id_syndic);
   }
+
+  $redirect = parametre_url($redirect, 'maj', 'ok');
   include_spip('inc/headers');
   redirige_par_entete($redirect);
 }

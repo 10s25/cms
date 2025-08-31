@@ -7,13 +7,15 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
  */
 function action_maj_geolieu_dist(){
   // Récupérer l'arg sécurisé (ID du site) depuis l'URL d'action
+  $redirect = _request('redirect');
   $securiser_action = charger_fonction('securiser_action', 'inc');
   $id_rubrique = intval($securiser_action());
 
   include_spip('inc/autoriser');
   if (!autoriser('modifier', 'rubrique', $id_rubrique)) {
+    $redirect = parametre_url($redirect, 'err', 'manque_droits');
     include_spip('inc/headers');
-    redirige_par_entete(_request('redirect'));
+    redirige_par_entete($redirect);
     exit;
   }
 
@@ -28,6 +30,7 @@ function action_maj_geolieu_dist(){
   ));
 
   // Redirection finale
+  $redirect = parametre_url($redirect, 'maj', 'ok');
   include_spip('inc/headers');
-  redirige_par_entete(_request('redirect')); // fourni par #URL_ACTION_AUTEUR (ici #SELF)
+  redirige_par_entete($redirect); // fourni par #URL_ACTION_AUTEUR (ici #SELF)
 }
