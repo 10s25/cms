@@ -1,0 +1,33 @@
+#CACHE{0}
+#FILTRE{trim}
+<BOUCLE_r(RUBRIQUES){id_rubrique}>
+    {
+        "titre": [(#TITRE|textebrut|json_encode)],
+        "url": [(#URL_RUBRIQUE|json_encode)],
+        "liens": [
+            <BOUCLE_s(SITES){id_rubrique}{tout}{statut IN publie,prop,refuse}{par num nom_site, nom_site}>
+                [(#SET{lat, #DESCRIPTIF|textebrut|explode{','}|table_valeur{0}|trim})]
+                [(#SET{lon, #DESCRIPTIF|textebrut|explode{','}|table_valeur{1}|trim})]
+                [(#SET{type_site, ''})]
+                <BOUCLE_type(MOTS){id_syndic}{id_groupe=4}{0,1}>[(#SET{type_site,#TITRE})]</BOUCLE_type><//B_type>
+                [(#SET{territoire, ''})]
+                <BOUCLE_terr(MOTS){id_syndic}{id_groupe=2}{0,1}>[(#SET{territoire,#ID_MOT})]</BOUCLE_terr><//B_terr>
+                [(#COMPTEUR_BOUCLE|>{1}|oui),]
+                {
+                    "type": [(#GET{type_site}|sinon{null}|json_encode)],
+                    "nom": [(#NOM_SITE|json_encode)],
+                    "url": [(#URL_SITE|json_encode)],
+                    "territoire": [(#GET{territoire}|sinon{null}|json_encode)],
+                    "latitude": [(#GET{lat}|replace{','','.'}|json_encode)],
+                    "longitude": [(#GET{lon}|replace{','','.'}|json_encode)]
+                }
+            </BOUCLE_s>
+        ],
+        "sousLieux": [
+            <BOUCLE_ss(RUBRIQUES){id_parent}{par num titre, titre}>
+                [(#COMPTEUR_BOUCLE|>{1}|oui),
+                <INCLURE{fond=geoliens.json,id_rubrique=#ID_RUBRIQUE}>
+            </BOUCLE_ss>
+        ]
+    }
+</BOUCLE_r>
