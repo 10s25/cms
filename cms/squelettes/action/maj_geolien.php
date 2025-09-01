@@ -3,13 +3,15 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
 
 function action_maj_geolien_dist(){
   // Récupérer l'arg sécurisé (ID du site) depuis l'URL d'action
+  $redirect = _request('redirect');
   $securiser_action = charger_fonction('securiser_action', 'inc');
   $id_syndic = intval($securiser_action());
 
   include_spip('inc/autoriser');
   if (!autoriser('modifier', 'site', $id_syndic)) {
+    $redirect = parametre_url($redirect, 'err', 'manque_droits');
     include_spip('inc/headers');
-    redirige_par_entete(_request('redirect'));
+    redirige_par_entete($redirect);
     exit;
   }
 
@@ -50,13 +52,21 @@ function action_maj_geolien_dist(){
     exit;
   }
 
+  if (!$id_mot_typesite) {
+    // On renvoie une erreur ciblée ; la page pourra l'afficher
+    $redirect = parametre_url($redirect, 'err', 'manque_type_site');
+    include_spip('inc/headers');
+    redirige_par_entete($redirect);
+    exit;
+  }
+
   if ($id_mot_territoire) {
     // Lat/lon obligatoires
     $coords_exists = $lat !== null && $lon !== null;
     if (!$coords_exists) {
       include_spip('inc/filtres'); // parametre_url()
       // On renvoie une erreur ciblée ; la page pourra l'afficher
-      $redirect = parametre_url($redirect, 'err', 'manque_coords');
+      $redirect = parametre_url($redirect, 'err', 'manque_coords_site');
       include_spip('inc/headers');
       redirige_par_entete($redirect);
       exit;
@@ -65,7 +75,7 @@ function action_maj_geolien_dist(){
     // Si pas de territoire, lat/lon interdits
     if ($lat !== null || $lon !== null) {
       // On renvoie une erreur ciblée ; la page pourra l'afficher
-      $redirect = parametre_url($redirect, 'err', 'coords_interdits');
+      $redirect = parametre_url($redirect, 'err', 'interdits_coords_site');
       include_spip('inc/headers');
       redirige_par_entete($redirect);
       exit;
@@ -77,7 +87,7 @@ function action_maj_geolien_dist(){
         // lat et lon doivent exister tous les deux
         include_spip('inc/filtres'); // parametre_url()
         // On renvoie une erreur ciblée ; la page pourra l'afficher
-        $redirect = parametre_url($redirect, 'err', 'manque_longitude');
+        $redirect = parametre_url($redirect, 'err', 'manque_longitude_site');
         include_spip('inc/headers');
         redirige_par_entete($redirect);
         exit;
@@ -85,7 +95,7 @@ function action_maj_geolien_dist(){
       if (!($lat >= -90 && $lat <= 90)) {
         // Lat doit etre dans les bornes
         // On renvoie une erreur ciblée ; la page pourra l'afficher
-        $redirect = parametre_url($redirect, 'err', 'invalide_latitude');
+        $redirect = parametre_url($redirect, 'err', 'invalide_latitude_site');
         include_spip('inc/headers');
         redirige_par_entete($redirect);
         exit;
@@ -97,7 +107,7 @@ function action_maj_geolien_dist(){
         // lat et lon doivent exister tous les deux
         include_spip('inc/filtres'); // parametre_url()
         // On renvoie une erreur ciblée ; la page pourra l'afficher
-        $redirect = parametre_url($redirect, 'err', 'manque_latitude');
+        $redirect = parametre_url($redirect, 'err', 'manque_latitude_site');
         include_spip('inc/headers');
         redirige_par_entete($redirect);
         exit;
@@ -105,7 +115,7 @@ function action_maj_geolien_dist(){
       if (!($lon >= -180 && $lon <= 180)) {
         // Lat doit etre dans les bornes
         // On renvoie une erreur ciblée ; la page pourra l'afficher
-        $redirect = parametre_url($redirect, 'err', 'invalide_longitude');
+        $redirect = parametre_url($redirect, 'err', 'invalide_longitude_site');
         include_spip('inc/headers');
         redirige_par_entete($redirect);
         exit;
@@ -152,6 +162,7 @@ function action_maj_geolien_dist(){
   $reset_associer(4, $id_mot_typesite);   // groupe 4
 
   // Redirection finale
+  $redirect = parametre_url($redirect, 'maj', 'ok');
   include_spip('inc/headers');
-  redirige_par_entete(_request('redirect')); // fourni par #URL_ACTION_AUTEUR (ici #SELF avec flags)
+  redirige_par_entete(_request('redirect'));
 }
