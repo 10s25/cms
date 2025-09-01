@@ -8,7 +8,7 @@
         <BOUCLE_terr(MOTS){id_syndic}{id_groupe=2}{0,1}>[(#SET{territoire,#TITRE})]</BOUCLE_terr><//B_terr>
         [(#COMPTEUR_BOUCLE|>{1}|oui),]
         {
-            "type": [(#GET{type_site}json_encode)],
+            "type": [(#GET{type_site}|json_encode)],
             "nom": [(#NOM_SITE|json_encode)],
             "url": [(#URL_SITE|json_encode)],
             "territoire": [(#GET{territoire}|json_encode)],

@@ -1,0 +1,35 @@
+#CACHE{0}
+
+<ul class="sidebar-section-1">
+	<li>
+		<h3 class="font-yellow">Réseaux sociaux</h3>
+        <ul class="sidebar-section-2">
+            <li>
+                <INCLURE{fond=geoliens-sites,id_rubrique=6} />
+            </li>
+        </ul>
+	</li>
+	<li>
+		<h3 class="font-yellow">Monde</h3>
+        <ul class="sidebar-section-2">
+            <BOUCLE_monde(RUBRIQUES){id_parent=5}{id_rubrique!=6}{par num titre, titre}>
+                <INCLURE{fond=geoliens-recursive,id_rubrique=#ID_RUBRIQUE} />
+            </BOUCLE_monde>
+        </ul>
+	</li>
+	<li>
+		<h3 class="font-yellow">Autres groupes</h3>
+        <ul class="sidebar-section-2">
+            <BOUCLE_autres(RUBRIQUES){id_parent=4}{par num titre, titre}>
+                <INCLURE{fond=geoliens-recursive,id_rubrique=#ID_RUBRIQUE} />
+            </BOUCLE_autres>
+        </ul>
+	</li>
+	<li>
+		<h3 class="font-yellow">Régions</h3>
+        <ul class="sidebar-section-2">
+            <BOUCLE_regions(RUBRIQUES){id_parent=6}{par num titre, titre}>
+                <INCLURE{fond=geoliens-recursive,id_rubrique=#ID_RUBRIQUE} />
+            </BOUCLE_regions>
+        </ul>
+	</li>

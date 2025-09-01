@@ -1,0 +1,15 @@
+
+<ul>
+    <BOUCLE_type(MOTS){id_groupe=4}>
+        <B_sites>
+            <li class="[(#DESCRIPTIF|textebrut|trim)]">
+                <p>#TITRE</p>
+                <ul>
+                    <BOUCLE_sites(SITES){id_rubrique}{id_mot}>
+                        <li><a href="#URL_SITE" target="_blank" rel="me">#NOM_SITE</a></li>
+                    </BOUCLE_sites>
+                </ul>
+            </li>
+        </B_sites>
+    </BOUCLE_type>
+</ul>
