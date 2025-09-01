@@ -1,0 +1,12 @@
+<BOUCLE_r(RUBRIQUES){id_rubrique}>
+    {
+        "nom": [(#TITRE|textebrut|json_encode)],
+        "liens": <INCLURE{fond=geoliens-sites.json,id_rubrique=#ID_RUBRIQUE}>,
+        "sousLieux": [
+            <BOUCLE_ss(RUBRIQUES){id_parent}{par num titre, titre}>
+                [(#COMPTEUR_BOUCLE|>{1}|oui),]
+                <INCLURE{fond=geoliens-recursive.json,id_rubrique=#ID_RUBRIQUE}>
+            </BOUCLE_ss>
+        ]
+    }
+</BOUCLE_r>
