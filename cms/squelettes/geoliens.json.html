@@ -1,0 +1,22 @@
+#FILTRE{trim}
+{
+    "reseaux": <INCLURE{fond=geoliens-sites.json,id_rubrique=6}>,
+    "regions": [
+        <BOUCLE_regions(RUBRIQUES){id_parent=6}{par num titre, titre}>
+            [(#COMPTEUR_BOUCLE|>{1}|oui),]
+            <INCLURE{fond=geoliens-recursive.json,id_rubrique=#ID_RUBRIQUE} />
+        </BOUCLE_regions>
+    ],
+    "monde": [
+        <BOUCLE_monde(RUBRIQUES){id_parent=5}{id_rubrique!={6}}{par num titre, titre}>
+            [(#COMPTEUR_BOUCLE|>{1}|oui),]
+            <INCLURE{fond=geoliens-recursive.json,id_rubrique=#ID_RUBRIQUE} />
+        </BOUCLE_monde>
+    ],
+    "autres": [
+        <BOUCLE_autres(RUBRIQUES){id_parent=4}{par num titre, titre}>
+            [(#COMPTEUR_BOUCLE|>{1}|oui),]
+            <INCLURE{fond=geoliens-recursive.json,id_rubrique=#ID_RUBRIQUE} />
+        </BOUCLE_autres>
+    ]
+}

@@ -132,30 +132,20 @@
             </thead>
             <tbody style="font-size: .8em;">
               <BOUCLE_sites(SITES){id_rubrique}{statut IN publie,prop,refuse}{par num nom_site, nom_site}>
+                [(#SET{lat,       #DESCRIPTIF|textebrut|explode{','}|table_valeur{0}|trim})]
+                [(#SET{lon,       #DESCRIPTIF|textebrut|explode{','}|table_valeur{1}|trim})]
+                [(#SET{type_site, ''})]
+                <BOUCLE_type(MOTS){id_syndic}{id_groupe=4}{0,1}>[(#SET{type_site,#TITRE})]</BOUCLE_type>
+                [(#SET{territoire, ''})]
+                <BOUCLE_terr(MOTS){id_syndic}{id_groupe=2}{0,1}>[(#SET{territoire,#ID_MOT})]</BOUCLE_terr>
                 <tr
                   [(#STATUT|=={prop}|oui) style="background:hsl(210.98deg 63.89% 82.96%)"]
                   [(#STATUT|=={publie}|oui) style="background:hsl(106, 63%, 83%)"]>
-                  <td style="padding: 0.2em;text-align:right;">
-                    #SET{mot_typesite_id, ''}
-                    <BOUCLE_mot_typesite_1(MOTS){id_syndic}{id_groupe=4}{0,1}>
-                      #SET{mot_typesite_id, #ID_MOT}
-                      #TITRE
-                    </BOUCLE_mot_typesite_1>
-                      ---------
-                    <//B_mot_typesite_1>
-                  </td>
+                  <td style="padding: 0.2em;text-align:right;">#GET{territoire}</td>
                   <th style="padding: 0.2em;text-align:left">#NOM_SITE</th>
                   <td style="padding: 0.2em;">#URL_SITE</span>
                   <td style="padding: 0.2em;">[(#DESCRIPTIF|textebrut|trim)]</td>
-                  <td style="padding: 0.2em;">
-                    #SET{mot_territoire_id, ''}
-                    <BOUCLE_mot_territoire_1(MOTS){id_syndic}{id_groupe=2}{0,1}>
-                      #SET{mot_territoire_id, #ID_MOT}
-                      #TITRE
-                    </BOUCLE_mot_territoire_1>
-                      ---------
-                    <//B_mot_territoire_1>
-                  </td>
+                  <td style="padding: 0.2em;">#GET{type_site}</td>
                   <td style="padding: 0.2em;text-align:center">
                     <div style="display:flex; gap:.5em; justify-content:center; align-items: center;">
                       [(#AUTORISER{instituer,site,#ID_SYNDIC}|oui)
@@ -174,7 +164,9 @@
                         </form>
                       ]
                       [(#AUTORISER{modifier,site,#ID_SYNDIC}|oui)
-                        <button data-dlg="dlg-site-#ID_SYNDIC">✎</button>
+                        <button type="button" onclick="editSite([(#GET{row}|json_encode|attribut_html)])">✎</button>
+
+                        <!--button data-dlg="dlg-site-#ID_SYNDIC">✎</button!-->
                         <dialog id="dlg-site-#ID_SYNDIC" style="width: 800px;">
                           <form style="display:grid;grid-template-columns: max-content 1fr; gap: 0.5em; align-items: center;"
                                 action="[(#URL_ACTION_AUTEUR{maj_geolien,#ID_SYNDIC,#SELF})]"
