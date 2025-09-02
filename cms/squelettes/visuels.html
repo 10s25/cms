@@ -41,9 +41,9 @@
 		<div id="content">
 			<section class="visuels">
 				<B_visuels>
-				[<nav role="navigation" class="pagination">(#PAGINATION)</nav>]
+				[<nav role="navigation" class="pagination">(#PAGINATION{page_precedent_suivant,nombre_liens_max=4})</nav>]
 				<div class="grid">
-				<BOUCLE_visuels(DOCUMENTS){mode=image}{tous}{id_article=#GET{id_article}}{pagination}>
+				<BOUCLE_visuels(DOCUMENTS){mode=image}{tous}{id_article=#GET{id_article}}{pagination 20}>
 					<div class="grid-item">
 						<a href="#URL_DOCUMENT" class="mediabox" rel="visuels"><img class="visuel" src="#URL_DOCUMENT" alt="#ALT"></a>
 					</div>
