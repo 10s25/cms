@@ -44,9 +44,9 @@
 			<BOUCLE_action(ARTICLES){id_article}>
 			<section class="postit background-yellow">
 				<div class="postit-content font-black">
-					<h2>#TITRE</h2>
-					<h5>#DATE</h5>
-					#TEXTE
+					<h2>#TITRE*</h2>
+					<h5>[(#DATE|nom_jour|ucfirst) ][(#DATE|affdate)]</h5>
+					[<div class="#EDIT{texte} texte surlignable clearfix">(#TEXTE|image_reduire{800,*})</div>]
 				</div>
 			</section>
 			<div id="carte"></div>

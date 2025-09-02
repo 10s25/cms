@@ -12,7 +12,7 @@ Liste récursive des groupes de la rubrique parente
 			<li class="[(#GET{rs_icon}|trim)]">
 				<p>#TITRE</p>
 				<ul><BOUCLE_sites(SITES){id_rubrique}{id_mot}>
-					<li><a href="#URL_SITE" target="_blank" rel="me">#NOM_SITE</a></li></BOUCLE_sites>
+					<li><a href="#URL_SITE" target="_blank" rel="me">[(#NOM_SITE|substr{0,30})]</a></li></BOUCLE_sites>
 				</ul>
 			</li></B_sites></BOUCLE_type>
 		</ul></B_type>
