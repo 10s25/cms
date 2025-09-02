@@ -1,7 +1,9 @@
-<BOUCLE_groupes(RUBRIQUES){id_parent}>
+<BOUCLE_groupes(RUBRIQUES){id_rubrique}>
     <li>
         <p class="font-yellow">#TITRE</p>
         <INCLURE{fond=geoliens-sites,id_rubrique=#ID_RUBRIQUE}>
     </li>
-    <BOUCLE_sous-groupes(BOUCLE_groupes) />
+    <BOUCLE_sous-groupes(RUBRIQUES){id_parent=#ID_RUBRIQUE}{par num titre, titre}>
+        <INCLURE{fond=geoliens-recursive,id_rubrique=#ID_RUBRIQUE} />
+    </BOUCLE_sous-groupes>
 </BOUCLE_groupes>
