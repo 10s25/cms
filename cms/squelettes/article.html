@@ -1,17 +1,14 @@
 #SET{keywords,'Bloquons tout, Indignons-nous, 10 Septembre, 10 Septembre 2025'}
 #SET{rs_titre,'Actions annoncées'}
 #SET{rs_desc,'Actions annoncées par le mouvement 10s25'}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
+<BOUCLE_article(ARTICLES){id_article}>
 <INCLURE{fond=head}
 {css=/local/visuels.css}
 {keywords=#GET{keywords}}
 {rs_titre=#GET{rs_titre}}
 {rs_desc=#GET{rs_desc}}>
-</head>
 <body>
-	<INCLURE{fond=inc_header}{titre_page=Action annoncée}>
+	<INCLURE{fond=inc_header}{titre_page=Les sans-dents ont du talent}>
 
 	<main id="center">
 		<div id="sidebar">
@@ -33,29 +30,19 @@
 		</div>
 
 		<div id="content">
-			<B_action>
-			<BOUCLE_action(ARTICLES){id_article}>
 			<section class="postit background-yellow">
 				<div class="postit-content font-black">
 					<h2>#TITRE</h2>
-					<h4>[(#DATE|nom_jour|ucfirst) ][(#DATE|affdate)]</h4>
 					[<div class="#EDIT{texte} texte surlignable clearfix">(#TEXTE|image_reduire{800,*})</div>]
+					<p><small>[(#DATE|nom_jour|ucfirst) ][(#DATE|affdate)]</small></p>
 				</div>
 			</section>
 			<div id="carte"></div>
-			</BOUCLE_action>
-			</B_action>
-			<section class="postit background-yellow">
-				<div class="postit-content font-black">
-					<h5>Pas d'action n°[(#ENV{id_article}|sinon{ inconnu})]</h5>
-				</div>
-			</section>
-			<//B_action>
 		</div>
 	</main>
 </body>
 </html>
-
+</BOUCLE_article>
 
 
 

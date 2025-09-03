@@ -1,25 +1,18 @@
 #SET{keywords,'Bloquons tout, Indignons-nous, 10 Septembre, 10 Septembre 2025'}
 #SET{rs_titre,'Les sans dents ont du talent - Visuels libres à diffuser'}
 #SET{rs_desc,'Ces visuels sont libres et faits pour être partagés: réseaux sociaux, messageries, affichage local…'}
+<!DOCTYPE html>
+<html dir="#LANG_DIR" lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js">
+<head>
 <INCLURE{fond=head}
 {css=/local/visuels.css}
 {keywords=#GET{keywords}}
 {rs_titre=#GET{rs_titre}}
 {rs_desc=#GET{rs_desc}}>
+</head>
 <body>
-	<header id="banniere">
-		<a href="/" title="Accueil"><img id="logo_left" src="/cms/IMG/[(#LOGO_SITE_SPIP**)]" alt="[(#URL_SITE_SPIP|substr{0,-4})]"></a>
-		<div>
-			<h1 class="font-yellow">Les sans-dents ont du talent</h1>
-		</div>
-	</header>
-	<div id="menu_top">
-		<ul>
-			<li><a href="/">&#8962;</a></li>
-			<INCLURE{fond=menu}>
-			<li><a href="/global/sites.html">Sites</a></li>
-		</ul>
-	</div>
+	<INCLURE{fond=inc_header}{titre_page=Les sans-dents ont du talent}>
+
 	<main id="center">
 		<div id="sidebar">
 			<div id="rejoindre" class="background-red">PARTICIPE</div>

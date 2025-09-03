@@ -7,3 +7,25 @@ h2.spip {
 	color: #f9e25b;
 }
 
+.pagination-item {
+	float: left;
+	margin: 10px;
+}
+.pagination { clear: both; text-align: center; }
+/* Pagination */
+.pagination .pagination-items {list-style: none;display: flex;flex-wrap: wrap; flex-direction: row; justify-content: center}
+.pagination .pagination-item {  margin: 0em; flex-basis: 7.5%; display: flex;align-items: center;}
+.pagination .pagination_precedent_suivant .pagination-item { flex-basis: auto;}
+.pagination .pagination-item + .pagination-item {  margin-left: 0.5em }
+.pagination .pagination-item-label { display:block; flex-basis: 100%; background: #f9e25b; text-decoration: none; padding:.5em; border-radius:.25em; text-align: center;}
+.pagination .on .pagination-item-label,
+.pagination a.pagination-item-label:hover,
+.pagination a.pagination-item-label:focus,
+.pagination a.pagination-item-label:active { background: #f52639; color: #fff; }
+.pagination .on .pagination-item-label {font-weight: bold;}
+.pagination .pagination_precedent_suivant .disabled {visibility: hidden}
+.pagination .pagination-item.disabled .pagination-item-label {color:#888; font-weight: normal;}
+.menu_articles .pagination strong {font-size:1em;}
+@media print {
+	.pagination { display: none; }
+}

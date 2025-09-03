@@ -1,0 +1,38 @@
+<header id="banniere">
+	<a href="/" title="Accueil"><img id="logo_left" src="/cms/IMG/[(#LOGO_SITE_SPIP**)]" alt="[(#URL_SITE_SPIP|substr{0,-4})]"></a>
+	<div>
+		<h1 class="font-yellow">#ENV{titre_page}</h1>
+	</div>
+</header>
+<div id="menu_top">
+	<ul>
+		<li><a href="/">&#8962;</a></li>
+		[(#REM) 
+		
+		Éléments de menu principal personnalisé pour ce site
+		
+		]<BOUCLE_rub_ressources(RUBRIQUES){titre=Ressources}>
+		<li class="dropdown[(#SELF|match{visuels}|oui) selected]">
+			<a href="#" class="disabled">#TITRE ▾</a>
+			<B_ressources>
+			<ul class="submenu">
+				<BOUCLE_ressources(ARTICLES){id_rubrique}>
+				<li[(#SELF|match{#TITRE}|oui) class="selected"]><a href="/cms/#URL_ARTICLE">#TITRE</a></li>
+				</BOUCLE_ressources>
+			</ul>
+			</B_ressources>
+			<a href="#" class="disabled" title="Pas encore d'articles ici.">ERREUR</a>
+			<B_ressources>
+			<//B_ressources>
+		</li>
+		</BOUCLE_rub_ressources>
+		<li class="dropdown[(#SELF|match{doleances.html|formulaire-doleances.html}|oui) selected]">
+			<a href="#" class="disabled">Doléances ▾</a>
+			<ul class="submenu">
+				<li[(#SELF|=={formulaire-doleances.html}|oui) class="selected"]><a href="/local/formulaire-doleances.html">Formulaire de Doléances</a></li>
+				<li[(#SELF|=={doleances.html}|oui) class="selected"]><a href="/cms/?page=doleances">Cahier de Doléances</a></li>
+			</ul>
+		</li>
+		<li><a href="/global/sites.html">Sites</a></li>
+	</ul>
+</div>
