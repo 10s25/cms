@@ -35,13 +35,6 @@
 					<BOUCLE_sites(SITES?) {id_rubrique}>
 					<li class="<INCLURE{fond=inc_icon_from_site}{id_syndic}>">
 						<a href="[(#ID_SYNDIC|generer_url_entite{site,'','',#CONNECT})]">#NOM_SITE</a>
-						<B_syndic>
-						<ul>
-							<BOUCLE_syndic(SYNDIC_ARTICLES?) {id_syndic} {!par date} {0,3}>
-							<li><a href="#URL_ARTICLE" class="spip_out">#TITRE</a></li>
-							</BOUCLE_syndic>
-						</ul>
-						</B_syndic>
 					</li>
 					</BOUCLE_sites>
 				</ul>
@@ -49,13 +42,16 @@
 			</B_sites>
 			[(#REM) Articles de la rubrique ]
 			<B_articles>
+			<h2><:articles:></h2>
 			<div class="menu menu_articles">
 				#ANCRE_PAGINATION
 				<ul>
-					<BOUCLE_articles(ARTICLES) {id_rubrique} {!par date} {pagination}>
-					<li dir="#LANG_DIR" class="hentry clearfix text-#LANG_LEFT">  
-						<strong><a href="#URL_ARTICLE">[(#LOGO_ARTICLE_RUBRIQUE|image_reduire{150,*}) ]#TITRE</a></strong>
-						[<div class="#EDIT{intro} introduction entry-content">(#INTRODUCTION)</div>]
+					<BOUCLE_articles(ARTICLES) {id_rubrique} {!par date} {pagination}>[
+					(#REM ) URL de redirection pour les pages Actions
+					][(#ID_RUBRIQUE|=={3}|oui)#SET{url_page_speciale,?page=doleances}]
+					<BOUCLE_type_article(MOTS){id_article}><BOUCLE_groupes_mots(GROUPES_MOTS){id_groupe}>[(#ID_GROUPE|=={3}|oui)#SET{url_page_speciale,?page=action&id_article=#ID_ARTICLE}]</BOUCLE_groupes_mots></BOUCLE_type_article>
+					<li dir="#LANG_DIR" class="hentry clearfix text-#LANG_LEFT">
+						<strong><a href="[(#GET{url_page_speciale}|sinon{#URL_ARTICLE})]">[(#LOGO_ARTICLE_RUBRIQUE|image_reduire{150,*}) ]#TITRE</a></strong>
 					</li>
 					</BOUCLE_articles>
 				</ul>

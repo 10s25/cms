@@ -1,3 +1,4 @@
+<BOUCLE_action(ARTICLES){id_article}>
 #SET{keywords,'Bloquons tout, Indignons-nous, 10 Septembre, 10 Septembre 2025'}
 #SET{rs_titre,'Actions annoncées'}
 #SET{rs_desc,'Actions annoncées par le mouvement 10s25'}
@@ -33,8 +34,6 @@
 		</div>
 
 		<div id="content">
-			<B_action>
-			<BOUCLE_action(ARTICLES){id_article}>
 			<section class="postit background-yellow">
 				<div class="postit-content font-black">
 					<h2>#TITRE</h2>
@@ -43,19 +42,8 @@
 				</div>
 			</section>
 			<div id="carte"></div>
-			</BOUCLE_action>
-			</B_action>
-			<section class="postit background-yellow">
-				<div class="postit-content font-black">
-					<h5>Pas d'action n°[(#ENV{id_article}|sinon{ inconnu})]</h5>
-				</div>
-			</section>
-			<//B_action>
 		</div>
 	</main>
 </body>
 </html>
-
-
-
-
+</BOUCLE_action>
