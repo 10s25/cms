@@ -1,13 +1,15 @@
 <?php
 
+// pour debug
+// ini_set('display_errors', 'On');
 // false en développement, true en prod
 $PROD = false;
 // jeton secret à modifier en prod
 $access_token = 'accesstoken'; 
 // mettre la liste d'adresses autorisées en prod
 $allowed_ips = ['192.168.0.1', '127.0.0.1', '172.18.0.1'];
-// chemin de la base de données
-$db_file = 'tmp/dump/Mon_site_SPIP_20250905.sqlite';
+// chemin des dumps
+$backup_dir = 'tmp/dump/';
 
 // -----
 
@@ -29,16 +31,43 @@ if (!isset($_GET['token']) || $_GET['token'] !== $access_token) {
     die('Accès interdit au jeton.');
 }
 
-// Vérifie l'existance du fichier
-if (!file_exists($db_file)) {
+// Vérifie existence dossier
+if (!is_dir($backup_dir)) {
     http_response_code(404);
-    die('Fichier introuvable.');
+    die('Dossier non trouvé : ' . $backup_dir);
+}
+
+// Recherche fichier 
+$latest_file = null;
+$latest_mtime = 0;
+$files = scandir($backup_dir);
+foreach ($files as $file) {
+    if ($file === '.' || $file === '..') {
+        continue;
+    }
+    $filepath = $backup_dir . $file;
+    // Filtre uniquement les .sqlite
+    if (pathinfo($filepath, PATHINFO_EXTENSION) === 'sqlite') {
+        // garde uniquement le fichier le plus récent
+        // (permet sauvegarde manuelle en plus de automatique)
+        $mtime = filemtime($filepath);
+        if ($mtime > $latest_mtime) {
+            $latest_mtime = $mtime;
+            $latest_file = $filepath;
+        }
+    }
+}
+
+// Vérifie existence fichier
+if (!$latest_file || !file_exists($latest_file)) {
+    http_response_code(404);
+    die('Aucune sauvegarde trouvée.');
 }
 
 // Envoie le fichier
-header('Content-Disposition: attachment; filename="database.sqlite"');
-header('Content-Length: ' . filesize($db_file));
-readfile($db_file);
+header('Content-Disposition: attachment; filename="' . basename($latest_file) . '"');
+header('Content-Length: ' . filesize($latest_file));
+readfile($latest_file);
 
 exit;
 ?>
