@@ -29,3 +29,19 @@ h2.spip {
 @media print {
 	.pagination { display: none; }
 }
+.pictogram {
+	max-height: 50px;
+	max-width: 50px;
+	float: left;
+	margin-right: 10px;
+}
+#carte {
+	height: 800px;
+}
+#carte .picto {
+	padding: 5px;
+	background-color: #ffdf4f;
+	border-radius: 25px;
+	border: thin solid #df0000;
+	box-shadow: 0 0 15px #ff00df;
+} 
