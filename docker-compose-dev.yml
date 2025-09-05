@@ -13,6 +13,9 @@ services:
     restart: always
     links:
       - db:mysql
+    volumes:
+      # monte les fichiers spip localement
+      - ./html:/var/www/html
     environment:
       - SPIP_AUTO_INSTALL=1
       - SPIP_DB_SERVER=mysql
