@@ -135,9 +135,9 @@
                 [(#SET{lat,       #DESCRIPTIF|textebrut|explode{','}|table_valeur{0}|trim})]
                 [(#SET{lon,       #DESCRIPTIF|textebrut|explode{','}|table_valeur{1}|trim})]
                 [(#SET{type_site, ''})]
-                <BOUCLE_type(MOTS){id_syndic}{id_groupe=4}{0,1}>[(#SET{type_site,#TITRE})]</BOUCLE_type>
+                <BOUCLE_type(MOTS){id_syndic}{id_groupe=2}{0,1}>[(#SET{type_site,#TITRE})]</BOUCLE_type>
                 [(#SET{territoire, ''})]
-                <BOUCLE_terr(MOTS){id_syndic}{id_groupe=2}{0,1}>[(#SET{territoire,#ID_MOT})]</BOUCLE_terr>
+                <BOUCLE_terr(MOTS){id_syndic}{id_groupe=4}{0,1}>[(#SET{territoire,#TITRE})]</BOUCLE_terr>
                 <tr
                   [(#STATUT|=={prop}|oui) style="background:hsl(210.98deg 63.89% 82.96%)"]
                   [(#STATUT|=={publie}|oui) style="background:hsl(106, 63%, 83%)"]>
@@ -164,9 +164,8 @@
                         </form>
                       ]
                       [(#AUTORISER{modifier,site,#ID_SYNDIC}|oui)
-                        <button type="button" onclick="editSite([(#GET{row}|json_encode|attribut_html)])">✎</button>
+                        <button type="button" data-dlg="dlg-site-#ID_SYNDIC">✎</button>
 
-                        <!--button data-dlg="dlg-site-#ID_SYNDIC">✎</button!-->
                         <dialog id="dlg-site-#ID_SYNDIC" style="width: 800px;">
                           <form style="display:grid;grid-template-columns: max-content 1fr; gap: 0.5em; align-items: center;"
                                 action="[(#URL_ACTION_AUTEUR{maj_geolien,#ID_SYNDIC,#SELF})]"
@@ -174,7 +173,7 @@
                             <label>Type de site</label>
                             <select name="typesite_site">
                               <option value="">Pas de type !</option>
-                              <BOUCLE_groupmot_typesite(MOTS){id_groupe=4}{par titre}>
+                              <BOUCLE_groupmot_typesite(MOTS){id_groupe=2}{par titre}>
                                 <option value="#ID_MOT" [(#ID_MOT|=={#GET{mot_typesite_id}}|oui) selected="selected"]>#TITRE</option>
                               </BOUCLE_groupmot_typesite>
                             </select>
@@ -188,7 +187,7 @@
                             <label>Territoire</label>
                             <select name="territoire_site">
                               <option value="">Pas de territoire !</option>
-                              <BOUCLE_groupmot_territoire(MOTS){id_groupe=2}{par titre}>
+                              <BOUCLE_groupmot_territoire(MOTS){id_groupe=4}{par titre}>
                                 <option value="#ID_MOT" [(#ID_MOT|=={#GET{mot_territoire_id}}|oui) selected="selected"]>#TITRE</option>
                               </BOUCLE_groupmot_territoire>
                             </select>
