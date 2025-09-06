@@ -1,7 +1,29 @@
 <BOUCLE_r(RUBRIQUES){id_rubrique}>
     {
         "nom": [(#TITRE|textebrut|json_encode)],
-        "liens": <INCLURE{fond=geoliens-sites.json,id_rubrique=#ID_RUBRIQUE}>,
+        "ressources": [
+            <BOUCLE_type(MOTS){id_groupe=4}{", "}>#SET{rs_icon,#DESCRIPTIF*}#SET{titre_mot,#TITRE*}<B_sites>
+                {
+                    "type": [(#GET{titre_mot}|textebrut|json_encode)],
+                    "icon": [(#GET{rs_icon}|textebrut|json_encode)],
+                    "liens": [
+                        <BOUCLE_sites(SITES){id_rubrique}{id_mot}{", "}>
+                            [(#SET{lat, #DESCRIPTIF|textebrut|explode{','}|table_valeur{0}|trim})]
+                            [(#SET{lon, #DESCRIPTIF|textebrut|explode{','}|table_valeur{1}|trim})]
+                            [(#SET{territoire, ''})]<BOUCLE_terr(MOTS){id_syndic}{id_groupe=2}{0,1}>[(#SET{territoire,#TITRE})]</BOUCLE_terr><//B_terr>
+                            {
+                                "nom": [(#NOM_SITE|substr{0,30}|textebrut|json_encode)],
+                                "url": [(#URL_SITE|textebrut|json_encode)],
+                                "territoire": [(#GET{territoire}|json_encode)],
+                                "latitude": [(#GET{lat}|replace{','','.'}|json_encode)],
+                                "longitude": [(#GET{lon}|replace{','','.'}|json_encode)]
+                            }
+                        </BOUCLE_sites>
+                    ]
+                }
+            </B_sites></BOUCLE_type>
+        ],
+
         "sousLieux": [
             <BOUCLE_ss(RUBRIQUES){id_parent}{par num titre, titre}>
                 [(#COMPTEUR_BOUCLE|>{1}|oui),]
