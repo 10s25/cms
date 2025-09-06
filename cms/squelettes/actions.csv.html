@@ -8,5 +8,5 @@ Fichier CSV des actions annoncées
 (#SET{rs_icon,#DESCRIPTIF*})
 ]<BOUCLE_actions(ARTICLES){id_mot}>[
 (#SET{desc,#DESCRIPTIF*|trim|explode{','}})
-]["(#TITRE*)"],<BOUCLE_rub(RUBRIQUES){id_rubrique}>[(#TITRE*|trim)]</BOUCLE_rub>,[(#GET{rs_icon}|trim|sinon{action})],"[(#VIRTUEL|sinon{#URL_SITE_SPIP/?page=action&id_article=#ID_ARTICLE})]",[(#GET{desc}|table_valeur{0}|sinon{0})],[(#GET{desc}|table_valeur{1}|sinon{0})]
+]["(#TITRE*)"],"<BOUCLE_rub(RUBRIQUES){id_rubrique}>[(#TITRE*|trim)]</BOUCLE_rub>",[(#GET{rs_icon}|trim|sinon{action})],"[(#VIRTUEL|sinon{#URL_SITE_SPIP/?page=action&id_article=#ID_ARTICLE})]",[(#GET{desc}|table_valeur{0}|sinon{0})],[(#GET{desc}|table_valeur{1}|sinon{0})]
 </BOUCLE_actions></BOUCLE_types_actions></B_types_actions>Mots-clés du groupe 3 non définis<//B_types_actions>
