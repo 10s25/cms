@@ -1,19 +1,15 @@
 [
-    <BOUCLE_s(SITES){id_rubrique}{tout}{statut IN publie}{par num nom_site, nom_site}>
-        [(#SET{lat, #DESCRIPTIF|textebrut|explode{','}|table_valeur{0}|trim})]
-        [(#SET{lon, #DESCRIPTIF|textebrut|explode{','}|table_valeur{1}|trim})]
-        [(#SET{type_site, ''})]
-        <BOUCLE_type(MOTS){id_syndic}{id_groupe=4}{0,1}>[(#SET{type_site,#TITRE})]</BOUCLE_type><//B_type>
-        [(#SET{territoire, ''})]
-        <BOUCLE_terr(MOTS){id_syndic}{id_groupe=2}{0,1}>[(#SET{territoire,#TITRE})]</BOUCLE_terr><//B_terr>
-        [(#COMPTEUR_BOUCLE|>{1}|oui),]
-        {
-            "type": [(#GET{type_site}json_encode)],
-            "nom": [(#NOM_SITE|json_encode)],
-            "url": [(#URL_SITE|json_encode)],
-            "territoire": [(#GET{territoire}|json_encode)],
-            "latitude": [(#GET{lat}|replace{','','.'}|json_encode)],
-            "longitude": [(#GET{lon}|replace{','','.'}|json_encode)]
-        }
-    </BOUCLE_s>
+    <BOUCLE_s(SITES){id_rubrique}{tout}{statut IN publie}{par num nom_site, nom_site}{", "}>
+    [(#SET{lat, #DESCRIPTIF|textebrut|explode{','}|table_valeur{0}|trim})]
+    [(#SET{lon, #DESCRIPTIF|textebrut|explode{','}|table_valeur{1}|trim})]
+    [(#SET{type_site, ''})]<BOUCLE_type(MOTS){id_syndic}{id_groupe=4}{0,1}>[(#SET{type_site,#TITRE})]</BOUCLE_type><//B_type>
+    [(#SET{territoire, ''})]<BOUCLE_terr(MOTS){id_syndic}{id_groupe=2}{0,1}>[(#SET{territoire,#TITRE})]</BOUCLE_terr><//B_terr>
+    {
+        "type": [(#GET{type_site}json_encode)],
+        "nom": [(#NOM_SITE|json_encode)],
+        "url": [(#URL_SITE|json_encode)],
+        "territoire": [(#GET{territoire}|json_encode)],
+        "latitude": [(#GET{lat}|replace{','','.'}|json_encode)],
+        "longitude": [(#GET{lon}|replace{','','.'}|json_encode)]
+    }</BOUCLE_s>
 ]
