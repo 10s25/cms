@@ -1,0 +1,300 @@
+(function(){
+	// gestion basique de dialog + infobox
+	if (window.showMessage) return;
+	
+	// Fallback : si le dialog n'existe pas, on le crée
+	function ensureMessageDialog(){
+		let dlg = document.getElementById('message-info-box');
+		if (!dlg) {
+			dlg = document.createElement('dialog');
+			dlg.id = 'message-info-box';
+			dlg.innerHTML =
+				'<div>'
+				+ '	<p id="message-info-box-content"></p>'
+				+ '	<button type="button" class="close-all-dlg">Fermer</button>'
+				+ '</div>';
+			document.body.appendChild(dlg);
+		}
+		return dlg;
+	}
+
+	// Fonction publique
+	window.showMessage = function(message){
+		const dlg = ensureMessageDialog();
+		const box = dlg.querySelector('#message-info-box-content');
+		box.textContent = message;
+		try { dlg.showModal(); } catch(e) { dlg.setAttribute('open','open'); }
+	};
+
+	// Bouton Annuler => ferme les dialogs ouverts
+	document.addEventListener('click', (e)=>{
+		if (e.target.closest('.close-all-dlg')) {
+			document.querySelectorAll('dialog[open]').forEach(d=>{ try{d.close()}catch(_){d.open=false} });
+		}
+	});
+})();
+
+(function(){
+	//affichage des message d'erreur quand on arrive sur une page
+	if (window.__qsMsgInit) return; window.__qsMsgInit = true;
+
+	// Associe chaque code à un message lisible
+	const ERR_MESSAGES = {
+		manque_droits : "Vous n’avez pas les droits suffisants pour cette action.",
+		manque_url_site		: "L’URL du site est invalide ou manquante.",
+		manque_nom_site : "Le nom du site est invalide ou manquant.",
+		manque_type_site	: "Le type du site est invalide ou manquant.",
+		manque_coords_site: "Les coordonnées du site sont invalides ou manquantes.",
+		interdits_coords_site: "Les coordonnées du site ne doivent pas être renseignées.",
+		manque_longitude_site: "La longitude du site est invalide ou manquante.",
+		manque_latitude_site: "La latitude du site est invalide ou manquante.",
+		invalide_latitude_site: "La latitude du site est invalide.",
+		invalide_longitude_site: "La longitude du site est invalide."
+	};
+
+	// (optionnel) message de succès si tu utilises maj=ok
+	const OK_MESSAGES = {
+		ok : "Modifications enregistrées."
+	};
+
+	function readAndNotify(){
+		const url = new URL(window.location.href);
+		const p	 = url.searchParams;
+
+		// ----- erreurs -----
+		const err = p.get('err');
+		if (err) {
+			const msg = ERR_MESSAGES[err] || ("Erreur : " + err);
+			if (typeof showMessage === 'function') showMessage(msg);
+			// retire le paramètre de l'URL
+			p.delete('err');
+		}
+
+		// ----- succès (facultatif : maj=ok) -----
+		const maj = p.get('maj');
+		if (maj && OK_MESSAGES[maj]) {
+			if (typeof showMessage === 'function') showMessage(OK_MESSAGES[maj]);
+			p.delete('maj');
+		}
+
+		// Nettoyage URL (sans recharger la page)
+		const clean = url.pathname + (p.toString() ? '?' + p.toString() : '') + url.hash;
+		window.history.replaceState(null, '', clean);
+	}
+
+	// au chargement
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', readAndNotify, {once:true});
+	} else {
+		readAndNotify();
+	}
+})();
+
+(function(){
+	if (window.__geoWidgetInit) return;
+	window.__geoWidgetInit = true;
+
+	// Styles minimaux (une seule fois)
+	if (!document.getElementById('leaflet-inline-style')){
+		const st = document.createElement('style'); st.id='leaflet-inline-style';
+		st.textContent = `
+			.leaflet-map{height:260px;border:1px solid #ddd;border-radius:6px;box-shadow:0 1px 2px rgba(0,0,0,.05);}
+			.geo-results{margin-top:.25rem;border:1px solid #ddd;border-radius:6px;max-height:240px;overflow:auto;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.08);}
+			.geo-results button{display:block;width:100%;text-align:left;padding:.5rem .75rem;border:0;background:transparent;cursor:pointer}
+			.geo-results button:hover{background:#f5f5f5}
+			.geo-results .hint{padding:.5rem .75rem;color:#666}
+			.geo-searchbar input[type="search"]{padding:.5rem .75rem;border:1px solid #ddd;border-radius:6px;outline:0}
+			.geo-searchbar .geo-clear{border:1px solid #ddd;background:#fff;border-radius:6px;padding:.5rem .75rem;cursor:pointer}
+		`;
+		document.head.appendChild(st);
+	}
+
+	// Charger Leaflet une fois
+	function loadLeaflet(cb){
+		if (window.L) { cb(); return; }
+		if (!document.getElementById('leaflet-css')) {
+			const l = document.createElement('link');
+			l.id='leaflet-css'; l.rel='stylesheet';
+			l.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+			document.head.appendChild(l);
+		}
+		if (!document.getElementById('leaflet-js')) {
+			const s = document.createElement('script');
+			s.id='leaflet-js';
+			s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+			s.onload = cb; document.head.appendChild(s);
+		} else {
+			document.getElementById('leaflet-js').addEventListener('load', cb, {once:true});
+		}
+	}
+
+	const maps = {};
+	const esc = s => (s??'').toString().replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+	const num = v => { v=(v??'').toString().replace(',', '.'); const n=parseFloat(v); return isFinite(n)?n:null; };
+
+	function wireSearch(dlg, map, marker, latInput, lonInput, mapId){
+		const input	 = dlg.querySelector(`.geo-search[data-map="${mapId}"]`);
+		const clearBt = dlg.querySelector(`.geo-clear[data-map="${mapId}"]`);
+		const list		= dlg.querySelector(`.geo-results[data-map="${mapId}"]`);
+		if (!input || !list) return;
+
+		const setInputs = (la, lo) => {
+			if (latInput) latInput.value = (Math.round(la*1e6)/1e6).toString();
+			if (lonInput) lonInput.value = (Math.round(lo*1e6)/1e6).toString();
+		};
+
+		const clearList = () => { list.innerHTML=''; list.hidden = true; };
+		const showHint = txt => { list.innerHTML = `<div class="hint">${esc(txt)}</div>`; list.hidden = false; };
+
+		let seq = 0;
+		const search = async (q) => {
+			const cur = ++seq;
+			q = (q||'').trim();
+			if (q.length < 3) { clearList(); return; }
+			showHint('Recherche…');
+
+			const params = new URLSearchParams({
+				format: 'jsonv2',
+				q: q,
+				addressdetails: '1',
+				limit: '8',
+				countrycodes: 'fr' // ← limite à la France; enlève cette ligne pour global
+			});
+
+			try{
+				const res = await fetch(`https://nominatim.openstreetmap.org/search?${params.toString()}`, {
+					headers: { 'Accept': 'application/json' }
+				});
+				if (cur !== seq) return; // abandonner si une recherche plus récente existe
+				const data = await res.json();
+				if (!Array.isArray(data) || data.length === 0) { showHint('Aucun résultat'); return; }
+
+				list.innerHTML = data.map(item => {
+					const la = parseFloat(item.lat), lo = parseFloat(item.lon);
+					const label = item.display_name || `${la}, ${lo}`;
+					return `<button type="button" data-lat="${la}" data-lon="${lo}">${esc(label)}</button>`;
+				}).join('');
+				list.hidden = false;
+
+			} catch(e){
+				showHint("Erreur réseau");
+			}
+		};
+
+		const debounce = (fn, ms) => { let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; };
+		const debouncedSearch = debounce(()=>search(input.value), 300);
+
+		input.addEventListener('input', debouncedSearch);
+		input.addEventListener('focus', ()=>{ if (input.value.trim().length>=3) debouncedSearch(); });
+
+		list.addEventListener('click', (e)=>{
+			const btn = e.target.closest('button[data-lat][data-lon]');
+			if (!btn) return;
+			const la = parseFloat(btn.dataset.lat), lo = parseFloat(btn.dataset.lon);
+			marker.setLatLng([la,lo]);
+			map.setView([la,lo], 16);
+			setInputs(la, lo);
+			clearList();
+		});
+
+		clearBt && clearBt.addEventListener('click', ()=>{
+			input.value = '';
+			clearList();
+			input.focus();
+		});
+	}
+
+	function initMapForDialog(dlg){
+		const box = dlg.querySelector('.leaflet-map');
+		if (!box) return;
+		const mapId = box.id || ('map-'+Math.random().toString(36).slice(2));
+		if (maps[mapId]) { setTimeout(()=>maps[mapId].invalidateSize(), 50); return; }
+
+		const latInput = dlg.querySelector('input[name="input_lat"]');
+		const lonInput = dlg.querySelector('input[name="input_lon"]');
+
+
+		// Si la page contient un textarea Descriptif, on y recherche latitude,longitude
+		// sinon on recherche lat/lon dans une box de classe ".leaflet-map"
+		const descriptif = document.querySelector('#descriptif');
+		if (!descriptif) {
+			var lat = num(box.dataset.lat), lon = num(box.dataset.lon);
+		} else {
+			desc = descriptif.value.split(',');
+			var lat = desc[0], lon = desc[1];
+			const btn_geoloc = document.querySelector('#geoloc');
+			btn_geoloc.addEventListener('click', function(e) {
+				// (à améliorer pour le cas de textes contenant d'autres virgules)
+				desc = descriptif.value.split(',');
+				descriptif.value = latInput.value + ',' + lonInput.value + (desc[2] ? ',' + desc[2] : '');
+				document.querySelectorAll('.dlg-geoloc').forEach(d=>{ try{d.close()}catch(_){d.open=false} });
+			});
+		}
+		const center = (lat!=null && lon!=null) ? [lat,lon] : [46.55,2.35]; // centre France
+		const zoom	 = (lat!=null && lon!=null) ? 13 : 5;
+
+		const map = L.map(box, {center, zoom});
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+			attribution: '&copy; OpenStreetMap contributors'
+		}).addTo(map);
+
+		const marker = L.marker(center, {draggable:true}).addTo(map);
+
+		const setInputs = (la, lo) => {
+			if (latInput) latInput.value = (Math.round(la*1e6)/1e6).toString();
+			if (lonInput) lonInput.value = (Math.round(lo*1e6)/1e6).toString();
+		};
+		if (lat!=null && lon!=null) setInputs(lat, lon);
+
+		map.on('click', e => { marker.setLatLng(e.latlng); setInputs(e.latlng.lat, e.latlng.lng); });
+		marker.on('dragend', () => { const ll = marker.getLatLng(); setInputs(ll.lat, ll.lng); });
+
+		// Inputs -> carte
+		const syncFromInputs = () => {
+			const la = num(latInput && latInput.value);
+			const lo = num(lonInput && lonInput.value);
+			if (la!=null && lo!=null) {
+				marker.setLatLng([la,lo]);
+				map.setView([la,lo], Math.max(map.getZoom(), 13));
+			}
+		};
+		['change','blur'].forEach(ev=>{
+			latInput && latInput.addEventListener(ev, syncFromInputs);
+			lonInput && lonInput.addEventListener(ev, syncFromInputs);
+		});
+
+		// Recherche/Nominatim pour cette carte
+		wireSearch(dlg, map, marker, latInput, lonInput, mapId);
+
+		// Ajuste la taille quand le <dialog> s'ouvre
+		setTimeout(()=>map.invalidateSize(), 60);
+
+		maps[mapId] = map;
+	}
+
+	// Ouvrir le dialog par tes triggers [data-dlg], init carte+recherche
+	document.addEventListener('click', function(e){
+		const trg = e.target.closest('[data-dlg]');
+		if (!trg) return;
+		const id = trg.getAttribute('data-dlg');
+		const dlg = document.getElementById(id);
+		if (!dlg) return;
+		loadLeaflet(()=> { initMapForDialog(dlg); try { dlg.showModal(); } catch(e) { dlg.open = true; } });
+	});
+
+	// Si un dialog s'ouvre autrement, initialise quand même
+	document.querySelectorAll('dialog.site-info-form').forEach(dlg=>{
+		dlg.addEventListener('toggle', ()=> { if (dlg.open) loadLeaflet(()=>initMapForDialog(dlg)); });
+	});
+
+	// Quand on change le territoire (si tu caches/affiches en CSS), invalider aussi ---
+	document.addEventListener('change', (e) => {
+		if (!e.target.matches('select[name="territoire_site"]')) return;
+		const dlg = e.target.closest('dialog');
+		const box = dlg && dlg.querySelector('.leaflet-map');
+		const id	= box && box.id;
+		const map = id && maps[id];
+		if (map) setTimeout(()=>{ try { map.invalidateSize(); } catch(e){} }, 60);
+	});
+})();
