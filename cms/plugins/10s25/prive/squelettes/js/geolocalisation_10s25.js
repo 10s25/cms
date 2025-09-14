@@ -227,7 +227,7 @@
 				// (à améliorer pour le cas de textes contenant d'autres virgules)
 				desc = descriptif.value.split(',');
 				descriptif.value = latInput.value + ',' + lonInput.value + (desc[2] ? ',' + desc[2] : '');
-				document.querySelectorAll('.dlg-geoloc').forEach(d=>{ try{d.close()}catch(_){d.open=false} });
+				document.querySelectorAll('.geoloc').forEach(d=>{ try{d.close()}catch(_){d.open=false} });
 			});
 		}
 		const center = (lat!=null && lon!=null) ? [lat,lon] : [46.55,2.35]; // centre France

@@ -1,7 +1,9 @@
 <script src="#CHEMIN{js/geolocalisation_10s25.js}"></script>
 <style>
-	dlg.geoloc {
-		display: none;
+	dialog.geoloc {
+		border-radius: 5px;
+		border: thin ridge #000000;
+		box-shadow: 5px 5px 15px #dfdfdf;
 	}
 
 	.coords-ui {
@@ -42,7 +44,7 @@
 </style>
 
 <button id="geoloc_open_dlg" title="Géolocaliser[ (#OBJET|strtoupper)]" data-dlg="dlg-#OBJET-#ID_OBJET">Géolocaliser</button>
-<dialog id="dlg-#OBJET-#ID_OBJET" class="dlg-geoloc">
+<dialog id="dlg-#OBJET-#ID_OBJET" class="geoloc">
 	<div style="grid-column: span 2; display:flex; flex-direction:column; gap: 0.5em">
 		<div class="coords-ui">
 			<div class="geo-wrap" style="grid-column: span 2;">
