@@ -1,0 +1,17 @@
+<paquet
+	prefix="sq10s25"
+	categorie="squelette"
+	version="0.0.1"
+	etat="dev"
+	compatibilite="[4.4.5;4.*]"
+	logo="prive/themes/spip/images/10s25.svg"
+	documentation="https://github.com/10s25/cms/wiki"
+	developpement="https://github.com/10s25/cms"
+>
+	<nom>10s25</nom>
+	<auteur lien="https://github.com/10s25">10s25</auteur>
+	<menu nom="groupes" titre="Groupes" action="edition-geoliens" parent="menu_edition" position="100" icone="images/10s25.svg" />
+	<chemin path="squelettes" />
+	<chemin path="prive/squelettes" />
+	<chemin path="" />
+</paquet>
