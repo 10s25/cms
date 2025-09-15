@@ -5,9 +5,9 @@ Liste récursive des groupes de la rubrique parente
 (l'indentation "étrange" génère un html à peu près lisible)
 
 ]<B_groupes>
-<ul class="liste_groupes"><BOUCLE_groupes(RUBRIQUES){id_parent}>
+<ul class="liste_groupes"><BOUCLE_groupes(RUBRIQUES){id_parent}{par num titre}>
 	<li>
-	<p class="font-yellow">#TITRE</p><B_type>
+	<a href="#URL_SITE_SPIP/#URL_RUBRIQUE"><p class="font-yellow">#TITRE</p></a><B_type>
 		<ul><BOUCLE_type(MOTS){id_groupe=4}>#SET{rs_icon,#DESCRIPTIF*}#SET{titre_mot,#TITRE*}<B_sites>
 			<li class="[(#GET{rs_icon}|trim)]">
 				<p>#TITRE</p>
