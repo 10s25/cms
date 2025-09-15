@@ -1,14 +1,14 @@
 <BOUCLE_article(ARTICLES){id_article}>
-#SET{keywords,'Bloquons tout, Indignons-nous, 10 Septembre, 10 Septembre 2025'}
-#SET{rs_titre,'Actions annoncées'}
-#SET{rs_desc,'Actions annoncées par le mouvement 10s25'}
+#SET{keywords,'Bloquons tout, Indignons-nous, 10 Septembre, 10 Septembre 2025', #TITRE}
+#SET{rs_titre,'#TITRE'}
+#SET{rs_desc,'Mouvement 10s25'}
 <INCLURE{fond=head}
 {css=/local/visuels.css}
 {keywords=#GET{keywords}}
 {rs_titre=#GET{rs_titre}}
 {rs_desc=#GET{rs_desc}}>
 <body>
-	<INCLURE{fond=inc_header}{titre_page=Les sans-dents ont du talent}>
+	<INCLURE{fond=inc_header}{titre_page=#TITRE}>
 
 	<main id="center">
 		<div id="sidebar">
@@ -33,7 +33,6 @@
 			<p class="arbo font-yellow"><a href="#URL_SITE_SPIP/" class="font-yellow"><:accueil_site:></a><BOUCLE_ariane(HIERARCHIE){id_article}> &gt; <a href="#URL_RUBRIQUE" class="font-yellow">[(#TITRE|couper{80})]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80})</strong>]</p>
 			<section class="postit background-yellow">
 				<div class="postit-content font-black">
-					<h2>#TITRE</h2>
 					[<div class="#EDIT{texte} texte surlignable clearfix">(#TEXTE|image_reduire{800,*})</div>]
 					<p><small>[(#DATE|nom_jour|ucfirst) ][(#DATE|affdate)]</small></p>
 				</div>
