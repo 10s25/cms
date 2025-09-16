@@ -25,11 +25,7 @@
 		<div id="content">
 			<section>
 				<div class="doleances">
-					<div class="grid">
-						<BOUCLE_doleances(ARTICLES){id_rubrique=#GET{id_rubrique}}{!par date}>
-						<div class="postit grid-item background-yellow font-black default-pointer">#TEXTE</div>
-						</BOUCLE_doleances>
-					</div>
+					<INCLURE{fond=inc_doleances}{debut_doleances}{id_rubrique=#GET{id_rubrique}}{ajax}>
 				</div>
 			</section>
 		</div>
