@@ -1,2 +1,30 @@
-[(#REM) à faire ]
+<div class="formulaire_spip formulaire_editer formulaire_editer_article formulaire_editer_article-#ENV{id_article,nouveau}">
+	[<div class="reponse_formulaire reponse_formulaire_ok" role="status">(#ENV**{message_ok})</div>]
+	[<div class="reponse_formulaire reponse_formulaire_erreur" role="alert">(#ENV*{message_erreur})</div>]
+	[(#ENV{editable})
+	<form method='post' action='#ENV{action}'><div>
+		#ACTION_FORMULAIRE
+		<input type='hidden' name='id_article' value='#ENV{id_article}'>
+		<input type='hidden' name='id_rubrique' value='#ENV{id_rubrique}'>
+		<input type='hidden' id='statut' name='statut' value='prop' />
+		<div class="editer-groupe">
+			<div class="editer editer_titre obligatoire[ (#ENV*{erreurs/titre}|oui)erreur]">
+				<label for="titre"><:info_titre|label_nettoyer:><em class="aide">#AIDER{titre}</em></label>[
+				<span class='erreur_message'>(#ENV*{erreurs/titre})</span>
+				]<input type='text' class='text' name='titre' id='titre'[ lang='(#LANGUE)'] value="[(#ENV{titre,''})]"
+				placeholder="<:info_nouvel_article|attribut_html:>">
+			</div>
 
+			[(#ENV{config/articles_texte}|sinon{#CONFIG{articles_texte}}|=={non}|?{#ENV{texte,''},' '}|oui)
+			<div class="editer editer_texte obligatoire[ (#ENV*{erreurs/texte}|oui)erreur]">
+				<label for="text_area"><:info_texte:><em class="aide">#AIDER{text_area}</em></label>[
+				<span class='erreur_message'>(#ENV*{erreurs/texte})</span>
+				]
+				<textarea name='texte' id='text_area'[ lang='(#LANGUE)'] rows='[(#ENV{config/lignes}|plus{2})]' cols='40'>[(#ENV{texte})]</textarea>
+			</div>]
+		</div>
+
+		<p class='boutons'><input type='submit' name="save" class='btn submit' value='<:bouton_enregistrer:>'></p>
+	</div></form>
+	]
+</div>
