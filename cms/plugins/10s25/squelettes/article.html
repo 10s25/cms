@@ -33,8 +33,8 @@
 			<p class="arbo font-yellow"><a href="#URL_SITE_SPIP/" class="font-yellow"><:accueil_site:></a><BOUCLE_ariane(HIERARCHIE){id_article}> &gt; <a href="#URL_RUBRIQUE" class="font-yellow">[(#TITRE|couper{80})]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80})</strong>]</p>
 			<section class="postit background-yellow">
 				<div class="postit-content font-black">
+					<div class="date_article">[(#DATE|nom_jour|ucfirst) ][(#DATE|affdate)]</div>
 					[<div class="#EDIT{texte} texte surlignable clearfix">(#TEXTE|image_reduire{800,*})</div>]
-					<p><small>[(#DATE|nom_jour|ucfirst) ][(#DATE|affdate)]</small></p>
 				</div>
 			</section>
 			<div id="carte"></div>

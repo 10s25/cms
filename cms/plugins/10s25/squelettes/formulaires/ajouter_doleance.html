@@ -1,18 +1,20 @@
-<div class="formulaire_spip formulaire_editer formulaire_editer_article formulaire_editer_article-#ENV{id_article,nouveau}">
+<div id="rejoindre" class="background-red">Mes doléances</div>
+<div id="form_ajout_doleance" class="formulaire_spip formulaire_editer formulaire_editer_article formulaire_editer_article-#ENV{id_article,nouveau}">
 	[<div class="reponse_formulaire reponse_formulaire_ok" role="status">(#ENV**{message_ok})</div>]
 	[<div class="reponse_formulaire reponse_formulaire_erreur" role="alert">(#ENV*{message_erreur})</div>]
+	[<div class="reponse_formulaire reponse_formulaire_erreur" role="alert">(#ENV*{erreurs/id_parent})</div>]
 	[(#ENV{editable})
 	<form method='post' action='#ENV{action}'><div>
-		#ACTION_FORMULAIRE
+		#ACTION_FORMULAIRE{#ENV{action}}
 		<input type='hidden' name='id_article' value='#ENV{id_article}'>
-		<input type='hidden' name='id_rubrique' value='#ENV{id_rubrique}'>
+		<input type='hidden' name='id_rubrique' value='#ENV{id_rubrique}'>#ENV{id_rubrique}
 		<input type='hidden' id='statut' name='statut' value='prop' />
 		<div class="editer-groupe">
 			<div class="editer editer_titre obligatoire[ (#ENV*{erreurs/titre}|oui)erreur]">
 				<label for="titre"><:info_titre|label_nettoyer:><em class="aide">#AIDER{titre}</em></label>[
 				<span class='erreur_message'>(#ENV*{erreurs/titre})</span>
 				]<input type='text' class='text' name='titre' id='titre'[ lang='(#LANGUE)'] value="[(#ENV{titre,''})]"
-				placeholder="<:info_nouvel_article|attribut_html:>">
+				placeholder="Mes revendications">
 			</div>
 
 			[(#ENV{config/articles_texte}|sinon{#CONFIG{articles_texte}}|=={non}|?{#ENV{texte,''},' '}|oui)

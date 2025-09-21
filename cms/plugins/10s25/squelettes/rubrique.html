@@ -42,7 +42,7 @@
 			</B_sites>
 			[(#REM) Articles de la rubrique ]
 			<B_articles>
-			<h2><:articles:></h2>
+			<h2>Publications</h2>
 			<div class="menu menu_articles">
 				#ANCRE_PAGINATION
 				<ul>
@@ -50,8 +50,8 @@
 					(#REM ) URL de redirection pour les pages Actions
 					][(#ID_RUBRIQUE|=={3}|oui)#SET{url_page_speciale,?page=doleances}]
 					<BOUCLE_type_article(MOTS){id_article}><BOUCLE_groupes_mots(GROUPES_MOTS){id_groupe}>[(#ID_GROUPE|=={3}|oui)#SET{url_page_speciale,?page=action&id_article=#ID_ARTICLE}]</BOUCLE_groupes_mots></BOUCLE_type_article>
-					<li dir="#LANG_DIR" class="hentry clearfix text-#LANG_LEFT">
-						<strong><a href="[(#GET{url_page_speciale}|sinon{#URL_ARTICLE})]">[(#LOGO_ARTICLE_RUBRIQUE|image_reduire{150,*}) ]#TITRE</a></strong>
+					<li dir="#LANG_DIR" class="article_list-item hentry clearfix text-#LANG_LEFT">
+						<strong><a href="[(#GET{url_page_speciale}|sinon{#URL_ARTICLE})]">[(#LOGO_ARTICLE_RUBRIQUE|image_reduire{50,*}) ]#TITRE</a></strong><nav class="date_article" >#DATE</nav>
 					</li>
 					</BOUCLE_articles>
 				</ul>

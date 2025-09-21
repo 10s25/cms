@@ -1,14 +1,5 @@
 <?php
 
-/***************************************************************************\
- *  SPIP, Système de publication pour l'internet                           *
- *                                                                         *
- *  Copyright © avec tendresse depuis 2001                                 *
- *  Arnaud Martin, Antoine Pitrou, Philippe Rivière, Emmanuel Saint-James  *
- *                                                                         *
- *  Ce programme est un logiciel libre distribué sous licence GNU/GPL.     *
-\***************************************************************************/
-
 /**
  * Gestion du formulaire d'ajout d'une doléance'
  *
@@ -21,6 +12,39 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 
 include_spip('inc/actions');
 include_spip('inc/editer');
+
+/**
+ * On autorise tout le monde à créer un nouvel article dans la rubrique Doléances (rub 3)
+ *
+ * @param string $action
+ * @param string $objet
+ * @param integer $id_objet
+ * @return boolean
+ */
+function autoriser_rubrique_creerarticledans($action, $objet, $id_objet) {
+	if ($action == 'creerarticledans'
+		and $objet == 'rubrique'
+		and $id_objet ==3) {
+		return true;
+	}
+}
+
+/**
+ * On autorise la modification d'un article (requis pour le passer "proposé")
+ *
+ * @param string $action
+ * @param string $objet
+ * @param integer $id_objet
+ * @return boolean
+ */
+function autoriser_article_modifier($action, $objet, $id_objet) {
+	if ($action == 'modifier'
+		and $objet == 'article'
+		) {
+		return true;
+	}
+}
+
 
 /**
  * Chargement du formulaire d'édition d'article
@@ -63,11 +87,14 @@ function formulaires_ajouter_doleance_charger_dist(
 		$row,
 		$hidden
 	);
-
+/*
 	if (intval($id_article) and !autoriser('modifier', 'article', intval($id_article))) {
 		$valeurs['editable'] = '';
 	}
-
+*/
+	if ($id_rubrique == 3) {
+		$valeurs['editable'] = ' ';
+	}
 	return $valeurs;
 }
 
@@ -169,7 +196,7 @@ function formulaires_ajouter_doleance_verifier_dist(
 		set_request('id_parent', $valeurs['id_parent']);
 	}
 	// on ne demande pas le titre obligatoire : il sera rempli a la volee dans ajouter_doleance si vide
-	$erreurs = formulaires_editer_objet_verifier('article', $id_article, ['id_parent']);
+	$erreurs = formulaires_editer_objet_verifier('article', $id_article, ['id_parent', 'titre', 'texte']);
 	// si on utilise le formulaire dans le public
 	if (!function_exists('autoriser')) {
 		include_spip('inc/autoriser');
@@ -178,9 +205,11 @@ function formulaires_ajouter_doleance_verifier_dist(
 		!isset($erreurs['id_parent'])
 		and !autoriser('creerarticledans', 'rubrique', _request('id_parent'))
 	) {
-		$erreurs['id_parent'] = _T('info_creerdansrubrique_non_autorise');
+		$erreurs['id_parent'] = _T('info_creerdansrubrique_non_autorise') . ' n°' . $id_rubrique;
 	}
-
+	if (strlen(_request('texte')) < 50) {
+		$erreurs['texte'] = 'Un peu trop court...' ;
+	}
 	return $erreurs;
 }
 
@@ -221,15 +250,16 @@ function formulaires_ajouter_doleance_traiter_dist(
 	if (!$lier_trad) {
 		set_request('changer_lang');
 	}
-
-	return formulaires_editer_objet_traiter(
+	$r = formulaires_editer_objet_traiter(
 		'article',
 		$id_article,
 		$id_rubrique,
 		$lier_trad,
-		$retour,
+		'',
 		$config_fonc,
 		$row,
 		$hidden
 	);
+	$r['message_ok'] = "Vos doléances ont bien été enregistrées. Elle seront publiées prochainement.";
+	return $r;
 }

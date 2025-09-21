@@ -8,8 +8,7 @@ h2.spip {
 }
 
 #content p.arbo {
-	margin-top: -30px;
-	margin-bottom: 30px;
+	margin: 5px 5px 35px 5px;
 }
 
 .pagination-item {
@@ -49,4 +48,40 @@ h2.spip {
 	border-radius: 25px;
 	border: thin solid #df0000;
 	box-shadow: 0 0 15px #ff00df;
-} 
+}
+
+li.article_list-item {
+	background: #ffffaf;
+	padding: 0 5px 0 5px;
+	border-radius: 5px;
+}
+div.date_article {
+	float: right;
+	margin-left: 15px;
+	font-size: 0.9rem;
+}
+
+div#form_ajout_doleance textarea, div#form_ajout_doleance #titre {
+	width: 100%;
+	margin-bottom: 15px;
+}
+div#form_ajout_doleance .reponse_formulaire_ok {
+	color: #00df00;
+}
+div#form_ajout_doleance .reponse_formulaire_ok:before {
+	content: "\2714";
+	margin-right: 10px;
+}
+div#form_ajout_doleance .reponse_formulaire_erreur, div#form_ajout_doleance span.erreur_message span {
+	color: #ff0000;
+	
+	
+}
+div#form_ajout_doleance span.erreur_message span {
+	margin-left: 15px;
+	text-shadow: rgba(0,0,128,0.9) 0px 0px 5px;
+}
+
+div#form_ajout_doleance .btn {
+	float: right;
+}
