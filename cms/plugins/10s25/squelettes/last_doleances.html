@@ -23,15 +23,24 @@
 			<//B_rub_doleances>
 			<br>
 			<br>
-			<a id="formulaire_saisie_doleance"></a>
-			[<div class="ajax">(#FORMULAIRE_AJOUTER_DOLEANCE{new,3,#SELF})</div>]
+			<div id="rejoindre" class="background-red">Mes doléances</div>
+			<a href="http://10s25.local/cms/?page=doleances#formulaire_saisie_doleance">Je veux publier mes doléances.</a>
 		</div>
 		<div id="content">
 			<section>
 				<div class="doleances">
-					<INCLURE{fond=inc_doleances}{debut_doleances}{id_rubrique=#GET{id_rubrique}}{ajax}>
+					<B_doleances>
+					<h2 align="center">Dernières doléances publiées</h2>
+					<div class="grid">
+					<BOUCLE_doleances(ARTICLES){id_rubrique=3}{!par date}{0,10}>
+					<div class="postit grid-item background-yellow font-black default-pointer">#TEXTE</div>
+					</BOUCLE_doleances>
+					</div>
+					</B_doleances>Pas de doléances<//B_doleances>
 				</div>
 			</section>
+			<br>
+			<div class="background-red"><a class="font-white" href="https://10s25.ovh/cms/?page=doleances"><h2 class="font-white" align="center">En voir plus</h2></a></div>
 		</div>
 	</main>
 </body>
