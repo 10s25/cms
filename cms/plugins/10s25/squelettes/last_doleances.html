@@ -1,14 +1,25 @@
 #SET{keywords,'Bloquons tout, Indignons-nous, 10 Septembre, 10 Septembre 2025'}
 #SET{rs_titre,'Cahier de doléances - 10S2025'}
 #SET{rs_desc,'Réparons un vol démocratique historique en relançant les cahiers de doléances. Pour que la voix du peuple ne soit plus confisquée !'}
-<INCLURE{fond=head}
+<INCLURE{fond=static_head}
 {css=/local/doleances.css}
 {keywords=#GET{keywords}}
 {rs_titre=#GET{rs_titre}}
 {rs_desc=#GET{rs_desc}}>
 <body>
-	<INCLURE{fond=inc_header}{titre_page=Cahiers de doléances}>
-
+	<header id="banniere">
+		<a href="/" title="Accueil"><img id="logo_left" src="/global/img/logo-inbt.svg"></a>
+		<div>
+			<h1 class="font-yellow">Cahiers de doléances</h1>
+		</div>
+	</header>
+	<div id="menu_top">
+		<ul>
+			<li><a href="/">&#8962;</a></li>
+			<INCLURE{fond=inc_menu}>
+			<li><a href="/global/sites.html">Sites</a></li>
+		</ul>
+	</div>
 	<main id="center">
 		<div id="sidebar">
 			<B_rub_doleances>
@@ -24,13 +35,14 @@
 			<br>
 			<br>
 			<div id="rejoindre" class="background-red">Mes doléances</div>
-			<a href="http://10s25.local/cms/?page=doleances#formulaire_saisie_doleance">Je veux publier mes doléances.</a>
+			<h5 align="center"><a href="http://10s25.local/cms/?page=doleances#formulaire_saisie_doleance" title="Clique ici pour publier tes doléances">Je veux publier mes doléances</a></h5>
 		</div>
 		<div id="content">
 			<section>
 				<div class="doleances">
 					<B_doleances>
 					<h2 align="center">Dernières doléances publiées</h2>
+					<br>
 					<div class="grid">
 					<BOUCLE_doleances(ARTICLES){id_rubrique=3}{!par date}{0,10}>
 					<div class="postit grid-item background-yellow font-black default-pointer">#TEXTE</div>

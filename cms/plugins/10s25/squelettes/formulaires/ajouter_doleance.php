@@ -250,6 +250,15 @@ function formulaires_ajouter_doleance_traiter_dist(
 	if (!$lier_trad) {
 		set_request('changer_lang');
 	}
+
+	if ( isset($_COOKIE['time-doleance']) && (time() - $_COOKIE['time-doleance'] < 86400) ) {
+		$r['message_erreur'] = 'Doléances déjà publiées il y a moins de 24 heures !';
+		return $r;
+	}
+
+	include_spip('inc/cookie');
+	spip_setcookie('time-doleance', time());
+
 	$r = formulaires_editer_objet_traiter(
 		'article',
 		$id_article,
