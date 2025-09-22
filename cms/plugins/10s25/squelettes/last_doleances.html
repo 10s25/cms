@@ -1,4 +1,8 @@
-#SET{keywords,'Bloquons tout, Indignons-nous, 10 Septembre, 10 Septembre 2025'}
+[(#REM)
+
+Génère la page statique source de /local/doleances.html
+
+]#SET{keywords,'Bloquons tout, Indignons-nous, 10 Septembre, 10 Septembre 2025'}
 #SET{rs_titre,'Cahier de doléances - 10S2025'}
 #SET{rs_desc,'Réparons un vol démocratique historique en relançant les cahiers de doléances. Pour que la voix du peuple ne soit plus confisquée !'}
 <INCLURE{fond=static_head}
@@ -8,15 +12,13 @@
 {rs_desc=#GET{rs_desc}}>
 <body>
 	<header id="banniere">
-		<a href="/" title="Accueil"><img id="logo_left" src="/global/img/logo-inbt.svg"></a>
-		<div>
-			<h1 class="font-yellow">Cahiers de doléances</h1>
-		</div>
+		<a href="/" title="Accueil"><img id="logo_left" src="/global/img/logo-inbt.svg" alt="<!--#echo var="SERVER_NAME" -->"></a>
+		<div><h1 class="font-yellow">Cahier de doléances</h1></div>
 	</header>
 	<div id="menu_top">
 		<ul>
 			<li><a href="/">&#8962;</a></li>
-			<INCLURE{fond=inc_menu}>
+			<!--#include virtual="/cms/?page=inc_menu" onerror="/local/ssi/menu_top.shtml" -->
 			<li><a href="/global/sites.html">Sites</a></li>
 		</ul>
 	</div>
