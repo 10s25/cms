@@ -85,3 +85,12 @@ div#form_ajout_doleance span.erreur_message span {
 div#form_ajout_doleance .btn {
 	float: right;
 }
+
+.page_rubrique .menu > ul > li {
+	font-size: 1.1rem;
+	margin-bottom: 15px;
+}
+.page_rubrique .menu > ul > li > ul > li {
+	margin-left: 15px;
+	font-size: 0.9rem;
+}
