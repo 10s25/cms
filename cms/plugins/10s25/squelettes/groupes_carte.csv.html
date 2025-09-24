@@ -8,5 +8,5 @@ car les champs latitude et longitude sont OBLIGATOIRES.
 ]<B_niv>nom,rs_icon,url,latitude,longitude,texte
 <BOUCLE_niv(SITES){titre_mot=#NIVEAU}{id_groupe=4}>[
 (#SET{desc,#DESCRIPTIF*|trim|explode{','}})
-]<BOUCLE_nom_niv(RUBRIQUES){id_rubrique}>["(#TITRE)"]</BOUCLE_nom_niv>,<BOUCLE_rs_icon(MOTS){id_groupe=4}{id_syndic}>#DESCRIPTIF*</BOUCLE_rs_icon>,#URL_SITE,[(#GET{desc}|table_valeur{0}|sinon{0})],[(#GET{desc}|table_valeur{1}|sinon{0})],["(#GET{desc}|table_valeur{2})"]
+]<BOUCLE_nom_niv(RUBRIQUES){id_rubrique}>["(#TITRE)"]</BOUCLE_nom_niv>,<BOUCLE_rs_icon(MOTS){id_groupe=4}{id_syndic}>#DESCRIPTIF*</BOUCLE_rs_icon>,#URL_SITE,[(#GET{desc}|table_valeur{0}|sinon{0}|trim)],[(#GET{desc}|table_valeur{1}|sinon{0}|trim)],["(#GET{desc}|table_valeur{2})"]
 </BOUCLE_niv></B_niv>Empty<//B_niv>
