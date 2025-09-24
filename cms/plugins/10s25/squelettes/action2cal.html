@@ -1,0 +1,21 @@
+#HTTP_HEADER{Content-Type: text/calendar; charset=#CHARSET}
+#HTTP_HEADER{Content-Disposition: attachment; filename="#ENV{titre}|replace{" ","_"}.ics"}
+[(#REM)
+
+Ajoute l'action à un agenda
+
+]BEGIN:VCALENDAR
+PRODID: -//10s25//agenda//
+VERSION:2.0
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+DTSTAMP:[(#ENV{date}|affdate{Ymd\THis})]
+DTSTART:[(#ENV{date}|affdate{Ymd\THis})]
+UID:[(#ENV{url}|md5)]@10s25.ovh
+[SUMMARY:(#ENV{titre})]
+[URL:(#ENV{url}|html_entity_decode)]
+[DESCRIPTION:(#ENV{texte}|html_entity_decode|wordwrap{60," 
+ ",true})]
+[LOCATION:(#ENV{loc})]
+END:VEVENT
+END:VCALENDAR

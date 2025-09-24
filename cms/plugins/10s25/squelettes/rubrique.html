@@ -7,7 +7,6 @@
 <head>
 <script type='text/javascript'>/*<![CDATA[*/(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement);/*]]>*/</script>
 <INCLURE{fond=head}
-{css=sp10s25.css}
 {keywords=#GET{keywords}}
 {rs_titre=#GET{rs_titre}}
 {rs_desc=#GET{rs_desc}}>
@@ -42,33 +41,8 @@
 				</ul>
 			</div>
 			</B_sites>
-		</div>
-		<div id="content">
-		<br>
-			<p class="arbo font-yellow"><a href="#URL_SITE_SPIP/" class="font-yellow"><:accueil_site:></a><BOUCLE_ariane(HIERARCHIE){id_rubrique}> &gt; <a href="#URL_RUBRIQUE" class="font-yellow">[(#TITRE|couper{80})]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80})</strong>]</p>
-			<section class="postit background-yellow">
-				<div class="postit-content font-black">
-				[<div class="#EDIT{texte} texte surlignable">(#TEXTE|image_reduire{800,*})</div>]
-			[(#REM) Articles de la rubrique ]
-			<B_articles>
-			<h2>Publications</h2>
-			<div class="menu menu_articles">
-				#ANCRE_PAGINATION
-				[<nav role="navigation" class="p pagination">(#PAGINATION)</nav>]
-				<ul>
-					<BOUCLE_articles(ARTICLES) {id_rubrique} {!par date} {pagination}>[
-					(#REM ) URL de redirection pour les pages Actions
-					][(#ID_RUBRIQUE|=={3}|oui)#SET{url_page_speciale,?page=doleances}]
-					<BOUCLE_type_article(MOTS){id_article}><BOUCLE_groupes_mots(GROUPES_MOTS){id_groupe}>[(#ID_GROUPE|=={3}|oui)#SET{url_page_speciale,?page=action&id_article=#ID_ARTICLE}]</BOUCLE_groupes_mots></BOUCLE_type_article>
-					<li dir="#LANG_DIR" class="article_list-item hentry clearfix text-#LANG_LEFT">
-						<strong><a href="[(#GET{url_page_speciale}|sinon{#URL_ARTICLE})]">[(#LOGO_ARTICLE_RUBRIQUE|image_reduire{50,*}) ]#TITRE</a></strong><nav class="date_article" >[(#DATE|nom_jour|ucfirst) ][(#DATE|affdate)][ à (#DATE|heures_minutes|substr{0,-3})]</nav>
-					</li>
-					</BOUCLE_articles>
-				</ul>
-			</div>
-			</B_articles>
-	
-			[(#REM) Si aucun article, affiche un plan de la rubrique ]
+			
+			[(#REM) Plan de la rubrique ]
 			<B_sous_rubriques>
 			<div class="menu menu_rubriques">
 				<h2><:sous_rubriques:></h2>
@@ -94,8 +68,32 @@
 				</ul>
 				</div>
 			</B_sous_rubriques>
-	
-			<//B_articles>[(#REM) supprimer pour toujours avoir le miniplan]
+			
+		</div>
+		<div id="content">
+		<br>
+			<p class="arbo font-yellow"><a href="#URL_SITE_SPIP/" class="font-yellow"><:accueil_site:></a><BOUCLE_ariane(HIERARCHIE){id_rubrique}> &gt; <a href="#URL_RUBRIQUE" class="font-yellow">[(#TITRE|couper{80})]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80})</strong>]</p>
+			<section class="postit background-yellow">
+				<div class="postit-content font-black">
+				[<div class="#EDIT{texte} texte surlignable">(#TEXTE|image_reduire{800,*})</div>]
+			[(#REM) Articles de la rubrique ]
+			<B_articles>
+			<h2>Publications</h2>
+			<div class="menu menu_articles">
+				#ANCRE_PAGINATION
+				[<nav role="navigation" class="p pagination">(#PAGINATION)</nav>]
+				<ul>
+					<BOUCLE_articles(ARTICLES) {id_rubrique} {!par date} {pagination}>[
+					(#REM ) URL de redirection pour les pages Actions
+					][(#ID_RUBRIQUE|=={3}|oui)#SET{url_page_speciale,?page=doleances}]
+					<BOUCLE_type_article(MOTS){id_article}><BOUCLE_groupes_mots(GROUPES_MOTS){id_groupe}>[(#ID_GROUPE|=={3}|oui)#SET{url_page_speciale,?page=action&id_article=#ID_ARTICLE}]</BOUCLE_groupes_mots></BOUCLE_type_article>
+					<li dir="#LANG_DIR" class="article_list-item hentry clearfix text-#LANG_LEFT">
+						<strong><a href="[(#GET{url_page_speciale}|sinon{#URL_ARTICLE})]">[(#LOGO_ARTICLE_RUBRIQUE|image_reduire{50,*}) ]#TITRE</a></strong><nav class="date_article" >[(#DATE|nom_jour|ucfirst) ][(#DATE|affdate)][ à (#DATE|heures_minutes|substr{0,-3})]</nav>
+					</li>
+					</BOUCLE_articles>
+				</ul>
+			</div>
+			</B_articles>
 				</div>
 			</section>
 		</div>
