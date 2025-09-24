@@ -14,4 +14,6 @@
 	<chemin path="squelettes" />
 	<chemin path="prive/squelettes" />
 	<chemin path="" />
+	<utilise nom="oembed" compatibilite="[3.4.0;[" />
+	<utilise nom="socialtags" compatibilite="[4.2.0;[" />
 </paquet>
