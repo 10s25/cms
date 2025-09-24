@@ -16,6 +16,9 @@ a.spip_out:hover {
 h2.spip {
 	color: #f9e25b;
 }
+.background-yellow h2.spip {
+	color: #000000;
+}
 
 /* Fil d'Ariane */
 #content p.arbo {
