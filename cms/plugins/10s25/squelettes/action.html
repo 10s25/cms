@@ -46,19 +46,23 @@
 			<p class="arbo font-yellow"><a href="#URL_SITE_SPIP/" class="font-yellow"><:accueil_site:></a><BOUCLE_ariane(HIERARCHIE){id_article}> &gt; <a href="#URL_RUBRIQUE" class="font-yellow">[(#TITRE|couper{80})]</a>[(#SET{nom_rubrique,#TITRE*})]</BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80})</strong>]</p>
 			<section class="postit background-yellow">
 				<div class="postit-content font-black">
-					<form action="/cms/?page=action2cal" method="post">
-						<input type="hidden" name="titre" value="[(#TITRE*|supprimer_tags|rtrim)]">
-						<input type="hidden" name="texte" value="[(#TEXTE*|supprimer_tags|rtrim)]">
-						<input type="hidden" name="date" value="#DATE">
-						<input type="hidden" name="url" value="#URL_SITE_SPIP/?page=action&id_article=#ID_ARTICLE">
-						<input type="hidden" name="loc" value="#GET{nom_rubrique}">
-						<button class="btn_add_to_agenda" type=submit" title="Ajouter à mon agenda">&#128197;</button>
-					</form>
+					<div class="action_buttons">
+						<div>
+							<form action="/cms/?page=action2cal" method="post">
+								<input type="hidden" name="titre" value="[(#TITRE*|supprimer_tags|rtrim)]">
+								<input type="hidden" name="texte" value="[(#TEXTE*|supprimer_tags|rtrim)]">
+								<input type="hidden" name="date" value="#DATE">
+								<input type="hidden" name="url" value="#URL_SITE_SPIP/?page=action&id_article=#ID_ARTICLE">
+								<input type="hidden" name="loc" value="#GET{nom_rubrique}">
+								<button class="btn_add_to_agenda" type=submit" title="Ajouter à mon agenda">&#128197;</button>
+							</form>
+						</div>
+						<div id="socialtags"></div>
+					</div>
 					<h2>#TITRE</h2>
 					<img class="pictogram"[ alt="(#GET{type_action})"] src="#GET{rs_icon}">
 					<h4>[(#DATE|nom_jour|ucfirst) ][(#DATE|affdate)][ à (#DATE|heures_minutes|substr{0,-3})]</h4>
 					[<div class="#EDIT{texte} texte surlignable clearfix">(#TEXTE|image_reduire{800,*})</div>]
-					<div id="socialtags"></div>
 				</div>
 			</section>
 			<h5 align="center">Localisation</h5>

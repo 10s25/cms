@@ -119,11 +119,18 @@ div.date_article {
 }
 
 /* Page action */
-button.btn_add_to_agenda {
+div.action_buttons {
+	display: flex;
+	flex-direction: column;
 	float: right;
+	text-align: right;
+	margin-top: -30px;
+}
+button.btn_add_to_agenda {
 	width: 60px;
 	height: 60px;
 	font-size: 40px;
 	border-radius: 5px;
 	cursor: pointer;
+	margin-bottom: 15px;
 }
