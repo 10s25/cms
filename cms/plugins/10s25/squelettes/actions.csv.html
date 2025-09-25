@@ -2,11 +2,14 @@
 
 Fichier CSV des actions annoncées
 
-]<B_types_actions>nom,territoire,date,rs_icon,url,latitude,longitude
+]<B_types_actions>nom,territoire,date,rs_icon,url,latitude,longitude,texte
 <BOUCLE_types_actions(MOTS){id_groupe=3}>[
 (#SET{type_action,#TITRE})][
 (#SET{rs_icon,#DESCRIPTIF*})
 ]<BOUCLE_actions(ARTICLES){id_mot}{age<1}>[
-(#SET{desc,#DESCRIPTIF*|trim|explode{','}})
-]["(#TITRE*)"],"<BOUCLE_rub(RUBRIQUES){id_rubrique}>[(#TITRE*|trim)]</BOUCLE_rub>","[(#DATE|nom_jour|ucfirst) ][(#DATE|affdate)][ à (#DATE|heures_minutes|substr{0,-3})]",[(#GET{rs_icon}|trim|sinon{action})],"[(#VIRTUEL|sinon{#URL_SITE_SPIP/?page=action&id_article=#ID_ARTICLE})]",[(#GET{desc}|table_valeur{0}|sinon{0}|trim)],[(#GET{desc}|table_valeur{1}|sinon{0}|trim)]
+(#SET{desc,#DESCRIPTIF*|trim|explode{','}})][
+(#SET{lat,#GET{desc}|table_valeur{0}|sinon{0}})][
+(#SET{lon,#GET{desc}|table_valeur{1}|sinon{0}})][
+(#SET{texte,#DESCRIPTIF*|trim|substr{#GET{lat}|strlen|plus{#GET{lon}|strlen}|plus{2}}})
+]["(#TITRE*)"],"<BOUCLE_rub(RUBRIQUES){id_rubrique}>[(#TITRE*|trim)]</BOUCLE_rub>","[(#DATE|nom_jour|ucfirst) ][(#DATE|affdate)][ à (#DATE|heures_minutes|substr{0,-3})]",[(#GET{rs_icon}|trim|sinon{action})],"[(#VIRTUEL|sinon{#URL_SITE_SPIP/?page=action&id_article=#ID_ARTICLE})]",[(#GET{lat}|trim)],[(#GET{lon}|trim)],["(#GET{texte}|trim|replace{'"',})"]
 </BOUCLE_actions></BOUCLE_types_actions></B_types_actions>Mots-clés du groupe 3 non définis<//B_types_actions>

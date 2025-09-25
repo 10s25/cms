@@ -224,9 +224,12 @@
 			var lat = desc[0], lon = desc[1];
 			const btn_geoloc = document.querySelector('#geoloc');
 			btn_geoloc.addEventListener('click', function(e) {
-				// (à améliorer pour le cas de textes contenant d'autres virgules)
 				desc = descriptif.value.split(',');
-				descriptif.value = latInput.value + ',' + lonInput.value + (desc[2] ? ',' + desc[2] : '');
+				var texte = null;
+				if (desc.length > 2) {
+					texte = descriptif.value.substr(desc[0].length + desc[1].length + 2);
+				}
+				descriptif.value = latInput.value + ',' + lonInput.value + (texte ? ',' + texte : '');
 				document.querySelectorAll('.geoloc').forEach(d=>{ try{d.close()}catch(_){d.open=false} });
 			});
 		}
