@@ -17,7 +17,7 @@
 
 <body class="pas_surlignable page_rubrique">
 <div class="page">
-	<INCLURE{fond=inc_header}{titre_page=#TITRE}>
+	<INCLURE{fond=inc_header}{titre_page=#TITRE}{logo_right=#LOGO_RUBRIQUE}>
 
 	<main id="center">
 		<div id="sidebar">
@@ -45,7 +45,7 @@
 			[(#REM) Plan de la rubrique ]
 			<B_sous_rubriques>
 			<div class="menu menu_rubriques">
-				<h2><:sous_rubriques:></h2>
+				<hr><br>
 				<ul class="spip">
 					<BOUCLE_sous_rubriques(RUBRIQUES) {id_parent} {par num titre}{!par date}>
 					<li>
