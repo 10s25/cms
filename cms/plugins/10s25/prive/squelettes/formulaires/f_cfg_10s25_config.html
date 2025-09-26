@@ -1,0 +1,26 @@
+[(#CACHE{0})][(#REM)
+
+Configuration 10s25
+
+]<div class='formulaire_spip formulaire_configurer formulaire_#FORM-#ENV{id,nouveau}' id='formulaire_configurer_#FORM'>
+	<h3 class='titrem'>[(#CHEMIN_IMAGE{10s25.svg}|balise_img{'',cadre-icone})]Miroirs</h3>
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	<form action="#ENV{action}#formulaire_configurer_#FORM" 
+		method="post"
+		style="text-align: #LANG_RIGHT">[(#REM) 
+declaration des hidden qui declencheront le service du formulaire
+parametre : url d'action ][(#ACTION_FORMULAIRE{#ENV{action}})]
+		<label for="MIRROR_AUTH_IP" title="IPs de miroirs autorisées">IPs autorisées</label>
+		<input id="MIRROR_AUTH_IP"
+			name="MIRROR_AUTH_IP"
+			type="text"
+			class="forml"
+			value="#CONFIG{sq10s25/MIRROR_AUTH_IP}"
+			style="width:85%;"
+			placeholder="127.0.0.1" /><span class="validity"></span>
+		<br>
+		<br>
+		<p class='boutons'><input class='submit' type="submit" name="ok" value="<:bouton_valider:>"/></p>
+	</form>
+</div>

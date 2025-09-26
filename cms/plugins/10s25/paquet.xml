@@ -11,6 +11,7 @@
 	<nom>10s25</nom>
 	<auteur lien="https://github.com/10s25">10s25</auteur>
 	<menu nom="groupes" titre="Groupes" action="edition-geoliens" parent="menu_edition" position="100" icone="images/10s25.svg" />
+	<menu nom="configurer_10s25" titre="10s25" parent="menu_configuration" icone="images/10s25.svg" />
 	<chemin path="squelettes" />
 	<chemin path="prive/squelettes" />
 	<chemin path="" />

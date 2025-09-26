@@ -1,0 +1,5 @@
+#HTTP_HEADER{Content-Type: application/zip}[(#REM)
+
+Fournit un backup aux ips autorisées
+
+]#SET{ip,#EVAL{$_SERVER['REMOTE_ADDR']}}#SET{auth_ips,#VAL{/[\s,]+/}|preg_split{#CONFIG{sq10s25/MIRROR_AUTH_IP}}}[(#GET{ip}|in_array{#GET{auth_ips}}|oui|sinon_interdire_acces)]<BOUCLE_f(DATA){source ls,tmp/mes_fichiers/*.zip}{!par mtime}{0,1}>#SET{file,#FILE}</BOUCLE_f>#INCLURE{#GET{file}}
