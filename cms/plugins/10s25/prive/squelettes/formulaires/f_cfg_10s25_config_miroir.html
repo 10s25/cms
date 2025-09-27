@@ -1,9 +1,9 @@
 [(#CACHE{0})][(#REM)
 
-Configuration 10s25 master
+Configuration 10s25 mirror
 
 ]<div class='formulaire_spip formulaire_configurer formulaire_#FORM-#ENV{id,nouveau}' id='formulaire_configurer_#FORM'>
-	<h3 class='titrem'>[(#CHEMIN_IMAGE{10s25.svg}|balise_img{'',cadre-icone})]Miroirs autorisés</h3>
+	<h3 class='titrem'>[(#CHEMIN_IMAGE{10s25.svg}|balise_img{'',cadre-icone})]Miroir de</h3>
 	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
 	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
 	<form action="#ENV{action}#formulaire_configurer_#FORM" 
@@ -11,14 +11,14 @@ Configuration 10s25 master
 		style="text-align: #LANG_RIGHT">[(#REM) 
 declaration des hidden qui declencheront le service du formulaire
 parametre : url d'action ][(#ACTION_FORMULAIRE{#ENV{action}})]
-		<label for="MIRROR_AUTH_IP" title="IPs de miroirs autorisées">IPs</label>
-		<input id="MIRROR_AUTH_IP"
-			name="MIRROR_AUTH_IP"
+		<label for="MIRROR_SOURCE" title="URL du site à copier ici">Site source</label>
+		<input id="MIRROR_SOURCE"
+			name="MIRROR_SOURCE"
 			type="text"
 			class="forml"
-			value="#CONFIG{sq10s25/MIRROR_AUTH_IP}"
+			value="#CONFIG{sq10s25/MIRROR_SOURCE}"
 			style="width:85%;"
-			placeholder="127.0.0.1" /><span class="validity"></span>
+			placeholder="10s25.ovh" /><span class="validity"></span>
 		<br>
 		<br>
 		<p class='boutons'><input class='submit' type="submit" name="ok" value="<:bouton_valider:>"/></p>

@@ -3,6 +3,14 @@
 Configuration 10s25
 
 ]<h1 class='grostitre'>Configuration 10s25</h1>
+
+[<div class="ajax">
+	(#FORMULAIRE_F_CFG_10S25_CONFIG_MIROIR|sinon{<br>#VAL{<i><:fichier_introuvable{fichier="formulaires/f_cfg_10s25_config_miroir"}:></i>}|inserer_attribut{class,error}})
+</div>]
+
+[(#PLUGIN{dumpauto}|et{#PLUGIN{mes_fichiers}}|oui)
 [<div class="ajax">
 	(#FORMULAIRE_F_CFG_10S25_CONFIG|sinon{<br>#VAL{<i><:fichier_introuvable{fichier="formulaires/f_cfg_10s25_config"}:></i>}|inserer_attribut{class,error}})
-</div>]
+</div>]]
+[(#PLUGIN{dumpauto}|et{#PLUGIN{mes_fichiers}}|non)
+Les plugins Dumpauto et Mes fichiers sont requis pour un site source de miroirs.]
