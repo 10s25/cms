@@ -24,7 +24,10 @@
 			<br>
 			<br>
 			<a id="formulaire_saisie_doleance"></a>
-			[<div class="ajax">(#FORMULAIRE_AJOUTER_DOLEANCE{new,3,#SELF})</div>]
+			[(#CONFIG{sq10s25/MIRROR_SOURCE}|non)[<div class="ajax">(#FORMULAIRE_AJOUTER_DOLEANCE{new,3,#SELF})</div>]]
+			[(#CONFIG{sq10s25/MIRROR_SOURCE}|oui)
+			<div id="rejoindre" class="background-red">Mes doléances</div>
+			<h5 align="center"><a href="http://10s25.ovh/cms/?page=doleances#formulaire_saisie_doleance" title="Clique ici pour publier tes doléances">Je veux publier mes doléances</a></h5>]
 		</div>
 		<div id="content">
 			<section>

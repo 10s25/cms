@@ -68,4 +68,3 @@ function rec_move($src, $dst) {
 	}
 	closedir($dir);
 }
-

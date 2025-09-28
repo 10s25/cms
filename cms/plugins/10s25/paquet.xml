@@ -1,7 +1,7 @@
 <paquet
 	prefix="sq10s25"
 	categorie="squelette"
-	version="0.0.1"
+	version="1.0.0"
 	etat="dev"
 	compatibilite="[4.4.5;4.*]"
 	logo="prive/themes/spip/images/10s25.svg"
