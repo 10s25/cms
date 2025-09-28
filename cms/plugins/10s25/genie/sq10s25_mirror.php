@@ -3,7 +3,7 @@
 function genie_sq10s25_mirror_dist($t) {
 	$src = lire_config('sq10s25/MIRROR_SOURCE');
 	if (!$src) {
-		return 0;
+		return 1;
 	}
 	$src .= '/cms/?page=master';
 	$cms_root = $_SERVER['DOCUMENT_ROOT'] . '/cms';
