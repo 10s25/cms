@@ -8,15 +8,16 @@ Liste récursive des groupes de la rubrique parente
 <ul class="liste_groupes css-accordion"><BOUCLE_groupes(RUBRIQUES){id_parent}{par num titre}>
 	<li>
 		<input id="tab-#ID_RUBRIQUE" type="checkbox">
-		<label for="tab-#ID_RUBRIQUE"><a href="#URL_SITE_SPIP/#URL_RUBRIQUE"><p class="font-yellow">#TITRE</p></a></label>
-	<B_type><div class="content">
-		<ul><BOUCLE_type(MOTS){id_groupe=4}>#SET{rs_icon,#DESCRIPTIF*}#SET{titre_mot,#TITRE*}<B_sites>
-			<li class="[(#GET{rs_icon}|trim)]">
-				<p>#TITRE</p>
-				<ul><BOUCLE_sites(SITES){id_rubrique}{id_mot}>
-					<li><a href="#URL_SITE" target="_blank" rel="me">[(#NOM_SITE|substr{0,30})]</a></li></BOUCLE_sites>
-				</ul>
-			</li></B_sites></BOUCLE_type>
-		</ul></div></B_type>
-	</li><BOUCLE_sous-groupes(BOUCLE_groupes) /></BOUCLE_groupes>
+		<label for="tab-#ID_RUBRIQUE"><a href="#URL_SITE_SPIP/#URL_RUBRIQUE">#TITRE</a></label>
+		<B_type><div class="content">
+			<ul><BOUCLE_type(MOTS){id_groupe=4}>#SET{rs_icon,#DESCRIPTIF*}#SET{titre_mot,#TITRE*}<B_sites>
+				<li class="[(#GET{rs_icon}|trim)]">
+					<p>#TITRE</p>
+					<ul><BOUCLE_sites(SITES){id_rubrique}{id_mot}>
+						<li><a href="#URL_SITE" target="_blank" rel="me">[(#NOM_SITE|substr{0,30})]</a></li></BOUCLE_sites>
+					</ul>
+				</li></B_sites></BOUCLE_type>
+			</ul>
+		</div></B_type>
+	<BOUCLE_sous-groupes(BOUCLE_groupes) /></li></BOUCLE_groupes>
 </ul></B_groupes>
