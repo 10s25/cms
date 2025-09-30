@@ -6,7 +6,7 @@
 <html lang="fr">
 <head>
 <script type='text/javascript'>/*<![CDATA[*/(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement);/*]]>*/</script>
-<INCLURE{fond=head}
+<INCLURE{fond=inclure/head}
 {keywords=#GET{keywords}}
 {rs_titre=#GET{rs_titre}}
 {rs_desc=#GET{rs_desc}}>
@@ -17,7 +17,7 @@
 
 <body class="pas_surlignable page_rubrique">
 <div class="page">
-	<INCLURE{fond=inc_header}{titre_page=#TITRE}{logo_right=#LOGO_RUBRIQUE}>
+	<INCLURE{fond=inclure/header}{titre_page=#TITRE}{logo_right=#LOGO_RUBRIQUE}>
 
 	<main id="center">
 		<div id="sidebar">
@@ -27,7 +27,7 @@
 				<div id="rejoindre" class="background-red"><:sur_web:></div>
 				<ul>
 					<BOUCLE_sites(SITES?) {id_rubrique}>
-					<li class="<INCLURE{fond=inc_icon_from_site}{id_syndic}>">
+					<li class="<INCLURE{fond=inclure/icon_from_site}{id_syndic}>">
 						<a href="#URL_SITE">#NOM_SITE</a>
 						<B_syndic>
 						<ul>
@@ -98,7 +98,7 @@
 			</section>
 		</div>
 	</main>
-
+	<INCLURE{fond=inclure/footer}>
 </div><!--.page-->
 </body>
 </html>

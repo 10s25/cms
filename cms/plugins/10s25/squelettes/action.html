@@ -14,14 +14,14 @@
 <head>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<INCLURE{fond=head}
+<INCLURE{fond=inclure/head}
 {css=/local/visuels.css}
 {keywords=#GET{keywords}}
 {rs_titre=#GET{rs_titre}}
 {rs_desc=#GET{rs_desc}}>
 </head>
 <body>
-	<INCLURE{fond=inc_header}{titre_page=Action annoncée}>
+	<INCLURE{fond=inclure/header}{titre_page=Action annoncée}>
 
 	<main id="center">
 		<div id="content">
@@ -52,6 +52,7 @@
 		</div>
 	</main>
 	<br>
+	<INCLURE{fond=inclure/footer}>
 </body>
 </html>
 <script>

@@ -2,12 +2,12 @@
 #SET{keywords,'Bloquons tout, Indignons-nous, 10 Septembre, 10 Septembre 2025', #TITRE}
 #SET{rs_titre,'#TITRE'}
 #SET{rs_desc,'Mouvement 10s25'}
-<INCLURE{fond=head}
+<INCLURE{fond=inclure/head}
 {keywords=#GET{keywords}}
 {rs_titre=#GET{rs_titre}}
 {rs_desc=#GET{rs_desc}}>
 <body>
-	<INCLURE{fond=inc_header}{titre_page=#TITRE}{logo_right=#LOGO_ARTICLE}>
+	<INCLURE{fond=inclure/header}{titre_page=#TITRE}{logo_right=#LOGO_ARTICLE}>
 
 	<main id="center">
 		<div id="sidebar">
@@ -39,6 +39,7 @@
 			<div id="carte"></div>
 		</div>
 	</main>
+	<INCLURE{fond=inclure/footer}>
 </body>
 </html>
 </BOUCLE_article>

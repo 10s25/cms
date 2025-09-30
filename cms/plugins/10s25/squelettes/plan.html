@@ -1,0 +1,28 @@
+#SET{keywords,'Bloquons tout, Indignons-nous, 10 Septembre, 10 Septembre 2025'}
+#SET{rs_titre,'Plan'}
+#SET{rs_desc,'Plan du site'}
+<!DOCTYPE html>
+<html dir="#LANG_DIR" lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js">
+<head>
+<INCLURE{fond=inclure/head,robots=none}
+{keywords=#GET{keywords}}
+{rs_titre=#GET{rs_titre}}
+{rs_desc=#GET{rs_desc}}>
+</head>
+<body class="pas_surlignable page_plan">
+	<div class="page">
+		<INCLURE{fond=inclure/header}{titre_page=Plan}>
+		<main id="center">
+			<div id="sidebar">[(#REM) à implémenter
+				<INCLURE{fond=inclure/navsub} />
+				#FORMULAIRE_RECHERCHE]
+			</div>
+			<div id="content">
+				<p class="arbo"><a class="font-yellow" href="#URL_SITE_SPIP/"><:accueil_site:></a> &gt; <strong class="on"><:plan_site:></strong></p>
+				#MODELE{plan}
+			</div>
+		</main>
+		<INCLURE{fond=inclure/footer}>
+	</div><!--.page-->
+</body>
+</html>

@@ -4,14 +4,14 @@
 <!DOCTYPE html>
 <html dir="#LANG_DIR" lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js">
 <head>
-<INCLURE{fond=head}
+<INCLURE{fond=inclure/head}
 {css=/local/visuels.css}
 {keywords=#GET{keywords}}
 {rs_titre=#GET{rs_titre}}
 {rs_desc=#GET{rs_desc}}>
 </head>
 <body>
-	<INCLURE{fond=inc_header}{titre_page=Les sans-dents ont du talent}>
+	<INCLURE{fond=inclure/header}{titre_page=Les sans-dents ont du talent}>
 
 	<main id="center">
 		<div id="sidebar">
@@ -28,9 +28,10 @@
 
 		<div id="content">
 			<section class="visuels">
-				<INCLURE{fond=inc_visuels}{debut_visuels}{ajax}>
+				<INCLURE{fond=inclure/visuels}{debut_visuels}{ajax}>
 			</section>
 		</div>
 	</main>
+	<INCLURE{fond=inclure/footer}>
 </body>
 </html>

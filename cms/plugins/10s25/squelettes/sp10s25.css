@@ -82,7 +82,7 @@ h2.spip {
 	box-shadow: 0 0 15px #ff00df;
 }
 
-/* Formulaire dolance */
+/* Formulaire doleance */
 div#form_ajout_doleance textarea, div#form_ajout_doleance #titre {
 	width: 100%;
 	margin-bottom: 15px;
@@ -144,4 +144,37 @@ button.btn_add_to_agenda {
 	border-radius: 5px;
 	cursor: pointer;
 	margin-bottom: 15px;
+}
+
+/* Page plan */
+body.page_plan #content ul.spip {
+	padding-left: 30px;
+}
+body.page_plan #content ul.spip a {
+	color: #f9e25b;
+}
+body.page_plan #content ul.spip a:hover {
+	color: #ff9f00;
+}
+body.page_plan #content ul.spip li.article a {
+	color: #ffffff;
+}
+body.page_plan #content ul.spip li.article a:hover {
+	color: #f9e25b;
+}
+body.page_plan #content ul.spip li.article {
+	margin-bottom: 0;
+}
+
+
+/* Footer */
+footer.footer {
+	margin-top: 10px;
+	text-align: center;
+}
+footer.footer a {
+	color: #f9e25b;
+}
+footer.footer a:hover {
+	color: #ff9f00;
 }

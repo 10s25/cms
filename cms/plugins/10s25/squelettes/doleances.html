@@ -1,13 +1,13 @@
 #SET{keywords,'Bloquons tout, Indignons-nous, 10 Septembre, 10 Septembre 2025'}
 #SET{rs_titre,'Cahier de doléances - 10S2025'}
 #SET{rs_desc,'Réparons un vol démocratique historique en relançant les cahiers de doléances. Pour que la voix du peuple ne soit plus confisquée !'}
-<INCLURE{fond=head}
+<INCLURE{fond=inclure/head}
 {css=/local/doleances.css}
 {keywords=#GET{keywords}}
 {rs_titre=#GET{rs_titre}}
 {rs_desc=#GET{rs_desc}}>
 <body>
-	<INCLURE{fond=inc_header}{titre_page=Cahiers de doléances}>
+	<INCLURE{fond=inclure/header}{titre_page=Cahiers de doléances}>
 
 	<main id="center">
 		<div id="sidebar">
@@ -35,10 +35,11 @@
 		<div id="content">
 			<section>
 				<div class="doleances">
-					<INCLURE{fond=inc_doleances}{debut_doleances}{id_rubrique=#GET{id_rubrique}}{ajax}>
+					<INCLURE{fond=inclure/doleances}{debut_doleances}{id_rubrique=#GET{id_rubrique}}{ajax}>
 				</div>
 			</section>
 		</div>
 	</main>
+	<INCLURE{fond=inclure/footer}>
 </body>
 </html>
