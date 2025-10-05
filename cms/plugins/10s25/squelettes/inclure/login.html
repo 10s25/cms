@@ -1,0 +1,18 @@
+[(#CACHE{0})][(#REM)
+
+Inclusion formulaire SPIP standard de la dist pour faciliter la maintenance
+Attention, il a changé avec SPIP 4 (2021), cf. https://www.spip.net/fr_article6428.html
+
+]<div class="cLogin">
+	<div class="bloc-title bsize">
+	 [(#ENV{titre,<:spip:icone_informations_personnelles:>})]
+	</div>[
+	(#ENV{titre}|non)#FORMULAIRE_LOGIN][(#ENV{titre}|oui)#FORMULAIRE_LOGIN{ecrire}[
+	<div class="login">
+		<p>
+			<a href="#URL_PAGE{identifiants,focus=nom_inscription}&amp;mode=(#URL_SITE_SPIP|tester_config{mode_inscription})" target="spip_pass" onclick="javascript:window.open(this.href, 'spip_pass', 'scrollbars=yes, resizable=yes, width=480, height=400'); return false;"><:login_sinscrire:></a>
+		</p>
+	</div>
+	]
+]
+</div>

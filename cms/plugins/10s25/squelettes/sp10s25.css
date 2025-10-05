@@ -1,9 +1,22 @@
+:root{
+	--jaune: #f9e25b;
+	--orange: #ff9f00;
+	--rouge: #f52639;
+	--blanc: #ffffff;
+	--noir: #000000;
+	--gris: #8f8f8f;
+}
+
 header#banniere img.spip_logo {
 	width: 200px;
 	max-width: 20%;
 	min-width: 120px;
 	max-height:200px;
 	margin-left: 20px;
+}
+
+.right {
+	text-align: right;
 }
 
 a {
@@ -15,17 +28,17 @@ a:hover {
 }
 
 a.spip_out {
-	color: #ffffff;
+	color: var(--blanc);
 }
 a.spip_out:hover {
-	color: #f9e25b;
+	color: var(--jaune);
 }
 
 h2.spip {
-	color: #f9e25b;
+	color: var(--jaune);
 }
 .background-yellow h2.spip {
-	color: #000000;
+	color: var(--noir);
 }
 
 /* Fil d'Ariane */
@@ -43,11 +56,11 @@ h2.spip {
 .pagination .pagination-item {  margin: 0em; flex-basis: 7.5%; display: flex;align-items: center;}
 .pagination .pagination_precedent_suivant .pagination-item { flex-basis: auto;}
 .pagination .pagination-item + .pagination-item {  margin-left: 0.5em }
-.pagination .pagination-item-label { display:block; flex-basis: 100%; background: #f9e25b; text-decoration: none; padding:.5em; border-radius:.25em; text-align: center;}
+.pagination .pagination-item-label { display:block; flex-basis: 100%; background: var(--jaune); text-decoration: none; padding:.5em; border-radius:.25em; text-align: center;}
 .pagination .on .pagination-item-label,
 .pagination a.pagination-item-label:hover,
 .pagination a.pagination-item-label:focus,
-.pagination a.pagination-item-label:active { background: #f52639; color: #fff; }
+.pagination a.pagination-item-label:active { background: var(--rouge); color: #fff; }
 .pagination .on .pagination-item-label {font-weight: bold;}
 .pagination .pagination_precedent_suivant .disabled {visibility: hidden}
 .pagination .pagination-item.disabled .pagination-item-label {color:#888; font-weight: normal;}
@@ -78,7 +91,7 @@ h2.spip {
 	padding: 5px;
 	background-color: #ffdf4f;
 	border-radius: 25px;
-	border: thin solid #df0000;
+	border: thin solid var(--rouge);
 	box-shadow: 0 0 15px #ff00df;
 }
 
@@ -98,7 +111,7 @@ div#form_ajout_doleance .reponse_formulaire_ok:before {
 	margin-right: 10px;
 }
 div#form_ajout_doleance .reponse_formulaire_erreur, div#form_ajout_doleance span.erreur_message span {
-	color: #ff0000;
+	color: var(--rouge);
 }
 div#form_ajout_doleance span.erreur_message span {
 	margin-left: 15px;
@@ -146,26 +159,70 @@ button.btn_add_to_agenda {
 	margin-bottom: 15px;
 }
 
-/* Page plan */
-body.page_plan #content ul.spip {
+/* Contenu */
+#content ul.spip {
 	padding-left: 30px;
 }
-body.page_plan #content ul.spip a {
-	color: #f9e25b;
+#content ul.spip a {
+	color: var(--jaune);
 }
-body.page_plan #content ul.spip a:hover {
-	color: #ff9f00;
+#content ul.spip a:hover {
+	color: var(--orange);
 }
-body.page_plan #content ul.spip li.article a {
-	color: #ffffff;
+#content ul.spip li.article a {
+	color: var(--blanc);
 }
-body.page_plan #content ul.spip li.article a:hover {
-	color: #f9e25b;
+#content ul.spip li.article a:hover {
+	color: var(--jaune);
 }
-body.page_plan #content ul.spip li.article {
+#content ul.spip li.article {
 	margin-bottom: 0;
 }
 
+li a.on {
+	font-weight: 600;
+}
+
+/* Login */
+
+div.cLogin {
+	border: thin solid var(--gris);
+	box-shadow: 2px 2px 10px var(--noir);
+	border-radius: 10px;
+}
+div.cLogin div.bloc-title {
+	text-align: center;
+	font-weight: 600;
+	background: var(--jaune);
+	color: var(--noir);
+	border-radius: 8px 8px 0 0;
+	border-bottom: thin solid var(--gris);
+}
+div.cLogin div.login, div.cLogin div.logout, div.cLogin form#formulaire_login p.boutons {
+	padding: 10px;
+}
+div.cLogin form#formulaire_login fieldset {
+	border: none;
+	padding: 10px;
+}
+div.cLogin form#formulaire_login fieldset legend {
+	display: none;
+}
+div.cLogin form#formulaire_login p.boutons {
+	text-align: right;
+}
+div.cLogin form#formulaire_login p.boutons input.btn {
+	font-weight: 600;
+	padding: 10px;
+	background: var(--jaune);
+	border: thin solid var(--gris);
+	border-radius: 10px;
+	cursor: pointer;
+}
+div.cLogin form#formulaire_login p.boutons input.btn:hover {
+	background: var(--rouge);
+	color: var(--blanc);
+}
 
 /* Footer */
 footer.footer {
@@ -173,8 +230,8 @@ footer.footer {
 	text-align: center;
 }
 footer.footer a {
-	color: #f9e25b;
+	color: var(--jaune);
 }
 footer.footer a:hover {
-	color: #ff9f00;
+	color: var(--orange);
 }

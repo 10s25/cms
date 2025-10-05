@@ -1,0 +1,73 @@
+<BOUCLE_principale(AUTEURS) {id_auteur}>
+#SET{keywords,'Bloquons tout, Indignons-nous, 10 Septembre, 10 Septembre 2025'}
+#SET{rs_titre,'Auteur'}
+#SET{rs_desc,'Contributrice ou contributeur du site'}
+<!DOCTYPE html>
+<html dir="#LANG_DIR" lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js">
+<head>
+<INCLURE{fond=inclure/head,robots=none}
+{keywords=#GET{keywords}}
+{rs_titre=#GET{rs_titre}}
+{rs_desc=#GET{rs_desc}}>
+	<link rel="alternate" type="application/rss+xml" title="[(#NOM|textebrut)]" href="[(#URL_PAGE{backend}|parametre_url{id_auteur,#ID_AUTEUR})]" />
+</head>
+
+<body class="pas_surlignable page_auteur">
+<div class="page">
+
+	<INCLURE{fond=inclure/header}{titre_page=Auteur} />
+
+	<main id="center" class="main" role="main">
+		<div id="sidebar">
+			<INCLURE{fond=inclure/navsub} />
+			[(#REM) Autres auteurs ]
+			<B_auteurs>
+			<div class="menu">
+				#ANCRE_PAGINATION
+				<h2><:info_auteurs:></h2>
+				<ul>
+					<BOUCLE_auteurs(AUTEURS) {par nom} {pagination 20}>
+					<li><a href="#URL_AUTEUR"[ class="(#EXPOSE)"]>[(#NOM|couper{80})]</a></li>
+					</BOUCLE_auteurs>
+				</ul>
+				[<nav role="navigation" class="p pagination">(#PAGINATION)</nav>]
+			</div>
+			</B_auteurs>
+		</div>
+		[(#REM) Contenu principal : affichage de l'auteur ]
+		<div class="content" id="content">
+			<p class="arbo"><a class="font-yellow" href="#URL_SITE_SPIP/"><:accueil_site:></a> &gt; <:info_auteurs:>[ &gt; <strong class="on">(#NOM|couper{80})</strong>]</p>
+	
+			<div class="vcard">[(#REM) microformat vcard]
+			<div class="cartouche">
+				[(#LOGO_AUTEUR|image_reduire{224,*})]
+				<h1 class="#EDIT{qui} fn">#NOM</h1>
+			</div>
+	
+			[<div class="#EDIT{bio} texte note">(#BIO)</div>]
+			[<p class="#EDIT{hyperlien} hyperlien"><:voir_en_ligne:> : <a href="(#URL_SITE)" class="url org spip_out">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]
+			</div>[(#REM) / vcard]
+	
+			[(#REM) Articles de l'auteur ]
+			<B_articles>
+			<div class="menu">
+				[#ANCRE_PAGINATION<nav role="navigation" class="p pagination">(#PAGINATION)</nav>]
+				<h2><:articles_auteur:> (#GRAND_TOTAL)</h2>
+				<ul class="spip">
+					<BOUCLE_articles(ARTICLES) {id_auteur} {!par popularite} {pagination 10}>
+					<li><a class="font-white" href="#URL_ARTICLE">#TITRE</a></li>
+					</BOUCLE_articles>
+				</ul>
+			</div>
+			</B_articles>
+			[<div class="notes"><hr />(#NOTES)</div>]
+
+		</div><!--.content-->
+	</main><!--.main-->
+
+	<INCLURE{fond=inclure/footer,self=#SELF} />
+
+</div><!--.page-->
+</body>
+</html>
+</BOUCLE_principale>
