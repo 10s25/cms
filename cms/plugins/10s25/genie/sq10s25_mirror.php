@@ -16,28 +16,49 @@ function genie_sq10s25_mirror_dist($t) {
 		copy($src, ZIP_FILENAME);
 	}
 	catch(Exception $e) {
-		spip_log('genie_sq10s25_mirror: unable to fetch "' . $src . '" in ' . ZIP_FILENAME, _LOG_ALERTE_ROUGE);
+		spip_log('genie_sq10s25_mirror: unable to fetch "' . $src . '" in ' . ZIP_FILENAME, _LOG_CRITIQUE);
 		return 0;
 	}
 	$zip = new ZipArchive;
-	if ($zip->open(ZIP_FILENAME) === TRUE) {
-		$zip->extractTo($dir_miroir);
-		$zip->close();
-		unlink(ZIP_FILENAME);
-		unlink($dir_miroir . '/.htaccess');
-		rec_move($dir_miroir . '/IMG', $cms_root . '/IMG');
-		rmdir($dir_miroir . '/IMG');
-		rec_move($dir_miroir . '/tmp/dump', $cms_root . '/tmp/dump');
-		rmdir($dir_miroir . '/tmp/dump');
-		rmdir($dir_miroir . '/tmp');
-		rmdir($dir_miroir);
-		// TODO  : restaurer la sauvegarde sqlite
-
-	} else {
+	$zipret = $zip->open(ZIP_FILENAME);
+	if (!$zipret) {
+		spip_log('genie_sq10s25_mirror: unable to open "' . ZIP_FILENAME . '". Erreur ' . $zipret, _LOG_CRITIQUE);
 		return 0;
 	}
+	$zip->extractTo($dir_miroir);
+	$zip->close();
+	unlink(ZIP_FILENAME);
+	unlink($dir_miroir . '/.htaccess');
+	rec_move($dir_miroir . '/IMG', $cms_root . '/IMG');
+	rmdir($dir_miroir . '/IMG');
+	$dump_dir = $dir_miroir . '/tmp/dump';
+	if (!is_dir($dump_dir)) {
+		spip_log('genie_sq10s25_mirror: "' . $dump_dir . '" n\'est pas un dossier accessible.', _LOG_CRITIQUE);
+		return 0;
+	}
+	$dirhandle = opendir($dump_dir);
+	while (false !== ($entry = readdir($dirhandle))) {
+		if ($entry != "." && $entry != "..") {
+			$filename = $entry;
+			break;
+		}
+	}
+	closedir($dirhandle);
+	rec_move($dir_miroir . '/tmp/dump', $cms_root . '/tmp/dump');
+	rmdir($dir_miroir . '/tmp/dump');
+	rmdir($dir_miroir . '/tmp');
+	rmdir($dir_miroir);
+	$sauvegarde = $cms_root . '/tmp/dump/' . $filename;
+	return restaurer_sauvegarde_sqlite($sauvegarde);
+}
+
+
+function restaurer_sauvegarde_sqlite($sauvegarde) {
+	spip_log('restaurer_sauvegarde_sqlite: "' . $sauvegarde . '"', _LOG_INFO_IMPORTANTE);
 	return 1;
 }
+
+
 
 /**
  * Move récursif
