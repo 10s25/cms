@@ -31,7 +31,7 @@
 				<B_doc>
 				[<nav role="navigation" class="pagination">(#PAGINATION)</nav>]
 				<div class="grid">
-				<BOUCLE_doc(DOCUMENTS){id_article=#GET{id_article}}{tous}{pagination}{oembed!=''}>
+				<BOUCLE_doc(DOCUMENTS){id_article=#GET{id_article}}{tous}{pagination}{oembed!=''}{!par date}>
 					<div class="grid-item">
 						[(#MODELE{emb, id_document=#ID_DOCUMENT})]
 						[(#FORMULAIRE_NOTATION)]
