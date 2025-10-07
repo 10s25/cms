@@ -2,10 +2,15 @@
 #SET{keywords,'Bloquons tout, Indignons-nous, 10 Septembre, 10 Septembre 2025', #TITRE}
 #SET{rs_titre,'#TITRE'}
 #SET{rs_desc,'Mouvement 10s25'}
+<!DOCTYPE html>
+<html dir="#LANG_DIR" lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js">
+<head>
 <INCLURE{fond=inclure/head}
+{css=/local/visuels.css}
 {keywords=#GET{keywords}}
 {rs_titre=#GET{rs_titre}}
 {rs_desc=#GET{rs_desc}}>
+</head>
 <body>
 	<INCLURE{fond=inclure/header}{titre_page=#TITRE}{logo_right=#LOGO_ARTICLE}>
 
@@ -30,6 +35,7 @@
 
 		<div id="content">
 			<p class="arbo font-yellow"><a href="#URL_SITE_SPIP/" class="font-yellow"><:accueil_site:></a><BOUCLE_ariane(HIERARCHIE){id_article}> &gt; <a href="#URL_RUBRIQUE" class="font-yellow">[(#TITRE|couper{80})]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80})</strong>]</p>
+			[(#FORMULAIRE_NOTATION)]
 			<section class="postit background-yellow">
 				<div class="postit-content font-black">
 					<div class="date_article">[(#DATE|nom_jour|ucfirst) ][(#DATE|affdate)]</div>
