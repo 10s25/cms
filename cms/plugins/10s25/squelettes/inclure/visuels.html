@@ -1,7 +1,7 @@
 <B_visuels>
 [<nav role="navigation" class="pagination">(#PAGINATION{page_precedent_suivant,nombre_liens_max=4})</nav>]
 <div class="grid">
-<BOUCLE_visuels(DOCUMENTS){mode=image}{tous}{id_article=3}{pagination 20}>
+<BOUCLE_visuels(DOCUMENTS){mode=image}{tous}{id_article=3}{pagination 20}{!par date}>
 	<div class="grid-item">
 		<a href="#URL_DOCUMENT" class="mediabox" rel="visuels"><img class="visuel" src="#URL_DOCUMENT" alt="#ALT"></a>
 		[(#FORMULAIRE_NOTATION)]
