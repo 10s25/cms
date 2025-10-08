@@ -86,7 +86,7 @@
 				#ANCRE_PAGINATION
 				[<nav role="navigation" class="p pagination">(#PAGINATION)</nav>]
 				<ul>
-					<BOUCLE_articles(ARTICLES) {id_rubrique} {pagination} {notation}{!par moyenne}{!par date} >[
+					<BOUCLE_articles(ARTICLES) {id_rubrique} {pagination 20} {notation}{!par moyenne}{!par date} >[
 					(#REM ) URL de redirection pour les pages Actions
 					][(#ID_RUBRIQUE|=={3}|oui)#SET{url_page_speciale,?page=doleances}]
 					<BOUCLE_type_article(MOTS){id_article}><BOUCLE_groupes_mots(GROUPES_MOTS){id_groupe}>[(#ID_GROUPE|=={3}|oui)#SET{url_page_speciale,?page=action&id_article=#ID_ARTICLE}]</BOUCLE_groupes_mots></BOUCLE_type_article>
