@@ -2,6 +2,7 @@
 	--jaune: #f9e25b;
 	--orange: #ff9f00;
 	--rouge: #f52639;
+	--bleu: #00008f;
 	--blanc: #ffffff;
 	--noir: #000000;
 	--gris: #8f8f8f;
@@ -234,4 +235,12 @@ footer.footer a {
 }
 footer.footer a:hover {
 	color: var(--orange);
+}
+
+.background-yellow a {
+	color: var(--noir)!important;
+}
+.background-yellow a:hover {
+	color: var(--bleu)!important;
+	text-shadow: 0 0 5px var(--orange);
 }
