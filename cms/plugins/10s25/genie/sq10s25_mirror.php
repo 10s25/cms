@@ -3,7 +3,7 @@
 function genie_sq10s25_mirror_dist($t) {
 	$src = lire_config('sq10s25/MIRROR_SOURCE');
 	if (!$src) {
-		return 1;
+		return 0;
 	}
 	$src .= '/cms/?page=master';
 	$cms_root = $_SERVER['DOCUMENT_ROOT'] . '/cms';
@@ -54,7 +54,15 @@ function genie_sq10s25_mirror_dist($t) {
 
 
 function restaurer_sauvegarde_sqlite($sauvegarde) {
-	spip_log('restaurer_sauvegarde_sqlite: "' . $sauvegarde . '"', _LOG_INFO_IMPORTANTE);
+	// Sauvegarder url ressources
+	$url_statique_ressources = lire_config('url_statique_ressources');
+	spip_log('restaurer_sauvegarde_sqlite: restauration de "' . $sauvegarde . '".', _LOG_INFO_IMPORTANTE);
+	// todo
+
+	// Restaurer url ressources
+	if ($url_statique_ressources) {
+		ecrire_config('url_statique_ressources', $url_statique_ressources);
+	}
 	return 1;
 }
 
