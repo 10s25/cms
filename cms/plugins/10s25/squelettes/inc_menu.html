@@ -1,24 +1,31 @@
-[(#REM) 
-
+[(#REM)
 Éléments de menu principal personnalisé pour ce site
+]
 
-]<BOUCLE_rub_ressources(RUBRIQUES){titre=Ressources}>
+<BOUCLE_rub_ressources(RUBRIQUES){titre=Ressources}>
 <li class="dropdown[(#SELF|match{visuels}|oui) selected]">
 	<a href="#" class="disabled">#TITRE ▾</a>
+
 	<B_ressources>
-	<ul class="submenu">
-		<BOUCLE_ressources(ARTICLES){id_rubrique}>
-		<li[(#SELF|match{#TITRE}|oui) class="selected"]><a href="/cms/#URL_ARTICLE">#TITRE</a></li>
-		</BOUCLE_ressources>
-	</ul>
+		<ul class="submenu">
+			<BOUCLE_ressources(ARTICLES){id_rubrique}>
+			<li[(#SELF|match{#URL_ARTICLE}|oui) class="selected"]>
+			<a href="/cms/#URL_ARTICLE">#TITRE</a>
+			</li>
+			</BOUCLE_ressources>
+		</ul>
 	</B_ressources>
-	<a href="#" class="disabled" title="Pas encore d'articles ici.">ERREUR</a>
-	<B_ressources>
-	<//B_ressources>
-</li>
-</BOUCLE_rub_ressources(RUBRIQUES){titre=Revendications}>
-<li><a href="/cms/revendications">Revendications</a></li>
+
+<//B_ressources>
 </li>
 </BOUCLE_rub_ressources>
-<li[(#SELF|=={doleances.html}|oui) class="selected"]><a href="/cms/?page=doleances">Doléances</a></li>
+
+<BOUCLE_rub_revendications(RUBRIQUES){titre=Revendications}>
+<li[(#SELF|match{revendications}|oui) class="selected"]>
+<a href="/cms/#URL_RUBRIQUE">#TITRE</a>
+</li>
+</BOUCLE_rub_revendications>
+
+<li[(#SELF|match{doleances}|oui) class="selected"]>
+<a href="/cms/?page=doleances">Doléances</a>
 </li>
