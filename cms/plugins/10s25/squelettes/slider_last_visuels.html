@@ -2,8 +2,8 @@
 Derniers visuels publiés sur le site
 ]
 <head>
-    <INCLURE{fond=inclure/static_head}
-    {css=/local/slider_last_visuels.css}>
+    <!-- On inclut ton CSS custom -->
+    <INCLURE{fond=inclure/head}{css=/local/slider_last_visuels.css}>
 </head>
 
 <B_derniers_visuels>
@@ -17,8 +17,13 @@ Derniers visuels publiés sur le site
             {!par date}
             {0,10}>
             <div class="slide-visuel">
-                <a href="#URL_DOCUMENT" class="mediabox" rel="slider-visuels">
-                    <img src="#URL_DOCUMENT" alt="#TITRE" class="visuel-slide" loading="lazy">
+                <a href="#URL_DOCUMENT"
+                   class="mediabox"
+                   rel="visuels"
+                   title="[(#TITRE|attribut_html)]">
+                    <img src="#URL_DOCUMENT"
+                         alt="[(#TITRE|attribut_html)]"
+                         class="visuel">
                 </a>
             </div>
             </BOUCLE_derniers_visuels>
@@ -27,6 +32,7 @@ Derniers visuels publiés sur le site
         <button class="slider-btn-visuels next">›</button>
     </div>
 </B_derniers_visuels>
+
 <p class="aucun-visuel">Aucun visuel disponible pour le moment.</p>
 <//B_derniers_visuels>
 
