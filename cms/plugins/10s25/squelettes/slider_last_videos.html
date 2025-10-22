@@ -1,0 +1,95 @@
+[(#REM)
+Slider des dernières vidéos publiées sur le site
+]
+<head>
+<INCLURE{fond=inclure/static_head}
+{css=/local/slider_last_videos.css}>
+</head>
+
+[(#REM) Slider des dernières vidéos publiées ]
+<B_videos>
+    <div class="slider-videos-container">
+        <button class="slider-btn prev">‹</button>
+
+        <div class="slider-videos">
+            <BOUCLE_videos(DOCUMENTS)
+            {extension IN html,mp4,webm,ogv}
+            {oembed!=''}
+            {statut==publie}
+            {!par date}
+            {0,10}>
+            <div class="slide">
+                <div class="video-container">
+                    [(#MODELE{emb, id_document=#ID_DOCUMENT, async=non, largeur=800, hauteur=450})]
+                </div>
+            </div>
+            </BOUCLE_videos>
+        </div>
+
+        <button class="slider-btn next">›</button>
+    </div>
+</B_videos>
+<p>Aucune vidéo pour le moment.</p>
+<//B_videos>
+
+<script>
+    function initSliderVideos() {
+        const slider = document.querySelector('.slider-videos');
+        if (!slider) {
+            console.warn('⏳ Slider pas encore chargé — nouvel essai dans 300ms');
+            return setTimeout(initSliderVideos, 300);
+        }
+
+        console.log('✅ Slider détecté, initialisation en cours...');
+
+        const slides = slider.querySelectorAll('.slide');
+        const next = document.querySelector('.slider-btn.next');
+        const prev = document.querySelector('.slider-btn.prev');
+        let index = 0;
+
+        function showSlide(i) {
+            index = (i + slides.length) % slides.length;
+            slider.style.transform = `translateX(-${index * 100}%)`;
+        }
+
+        next?.addEventListener('click', () => {
+            showSlide(index + 1);
+            console.log('➡️ Slide suivant');
+        });
+
+        prev?.addEventListener('click', () => {
+            showSlide(index - 1);
+            console.log('⬅️ Slide précédent');
+        });
+
+        // 🖱️ (optionnel) clic sur vidéo — juste un log d’info
+        slider.addEventListener('click', (e) => {
+            const videoDiv = e.target.closest('.video-container');
+            if (videoDiv) {
+                console.log('🎥 Clic sur une vidéo');
+            }
+        });
+
+        showSlide(0); // affiche la première vidéo au chargement
+    }
+
+    window.addEventListener('load', initSliderVideos);
+</script>
+
+
+
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.video-container iframe').forEach(iframe => {
+            const w = parseInt(iframe.getAttribute('width') || 0);
+            const h = parseInt(iframe.getAttribute('height') || 0);
+            if (h > w) {
+                iframe.closest('.video-container')?.setAttribute('data-vertical', 'true');
+            }
+        });
+    });
+</script>
