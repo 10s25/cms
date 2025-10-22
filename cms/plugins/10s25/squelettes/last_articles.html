@@ -10,7 +10,7 @@ Derniers articles publiés sur le site
     <BOUCLE_derniers_articles(ARTICLES){par date}{inverse}{id_secteur != 461}{id_secteur != 3}{!titre_mot=Rassemblement}{!titre_mot=Action}{!titre_mot=Formation}{!titre_mot=Cantine}{!titre_mot=Manif}{!titre_mot=Grève}{!titre_mot=Assemblée populaire}{0,5}>
     <li class="apercu-article">
         <a href="/cms/#URL_ARTICLE" class="bloc-article">
-            [(#LOGO_ARTICLE|image_reduire{100,0})]
+            [(#LOGO_ARTICLE|image_reduire{100,10000}|inserer_attribut{height,''})]
             <div class="contenu-article">
                 <strong>#TITRE</strong>
                 -
@@ -23,10 +23,12 @@ Derniers articles publiés sur le site
                 </small><br/>
                 [(#DESCRIPTIF
                 |sinon{#TEXTE|couper{450,'...','texte'}}
+                |replace{'</p>','</p> '}
+                |textebrut
+                |couper{450,'...'}
                 |propre
                 |wrap{'<div class="extrait">','</div>'}
                 )]
-
             </div>
         </a>
     </li>
