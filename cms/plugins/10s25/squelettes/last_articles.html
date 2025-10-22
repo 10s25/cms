@@ -17,9 +17,9 @@ Derniers articles publiés sur le site
                 <span class="small">[(#DATE|affdate)]</span>
                 <br/>
                 <small>
-                    <BOUCLE_auteurs(AUTEURS){id_article}{", "}>
-                    #NOM
-                    </BOUCLE_auteurs>
+                    <BOUCLE_rub(RUBRIQUES){id_rubrique}>
+                    #TITRE
+                    </BOUCLE_rub>
                 </small><br/>
                 [(#DESCRIPTIF
                 |sinon{#TEXTE|couper{450,'...','texte'}}
