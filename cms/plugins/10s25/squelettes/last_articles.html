@@ -9,7 +9,7 @@ Derniers articles publiés sur le site
 <ul class="liste-articles">
     <BOUCLE_derniers_articles(ARTICLES){par date}{inverse}{id_secteur != 461}{id_secteur != 3}{!titre_mot=Rassemblement}{!titre_mot=Action}{!titre_mot=Formation}{!titre_mot=Cantine}{!titre_mot=Manif}{!titre_mot=Grève}{!titre_mot=Assemblée populaire}{0,5}>
     <li class="apercu-article">
-        <a href="#URL_ARTICLE" class="bloc-article">
+        <a href="/cms/#URL_ARTICLE" class="bloc-article">
             [(#LOGO_ARTICLE|image_reduire{100,0})]
             <div class="contenu-article">
                 <strong>#TITRE</strong>
