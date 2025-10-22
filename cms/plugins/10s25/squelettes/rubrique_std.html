@@ -81,7 +81,7 @@
 				#ANCRE_PAGINATION
 				[<nav role="navigation" class="p pagination">(#PAGINATION)</nav>]
 				<ul>
-					<BOUCLE_articles(ARTICLES) {id_rubrique} {!par date} {pagination}>[
+					<BOUCLE_articles(ARTICLES){branche}{par date}{inverse}{pagination 10}>[
 					(#REM ) URL de redirection pour les pages Actions
 					][(#ID_RUBRIQUE|=={3}|oui)#SET{url_page_speciale,?page=doleances}]
 					<BOUCLE_type_article(MOTS){id_article}><BOUCLE_groupes_mots(GROUPES_MOTS){id_groupe}>[(#ID_GROUPE|=={3}|oui)#SET{url_page_speciale,?page=action&id_article=#ID_ARTICLE}]</BOUCLE_groupes_mots></BOUCLE_type_article>
@@ -90,6 +90,8 @@
 					</li>
 					</BOUCLE_articles>
 				</ul>
+				#ANCRE_PAGINATION
+				[<nav role="navigation" class="p pagination">(#PAGINATION)</nav>]
 			</div>
 			</B_articles>
 			<p><i>Aucun article publié dans #TITRE.</i></p>
