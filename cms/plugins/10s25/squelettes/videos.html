@@ -31,12 +31,16 @@
 				<B_doc>
 				[<nav role="navigation" class="pagination">(#PAGINATION)</nav>]
 				<div class="grid">
-				<BOUCLE_doc(DOCUMENTS){id_article=#GET{id_article}}{tous}{pagination}{oembed!=''}{!par date}>
+					<BOUCLE_doc(DOCUMENTS){id_article=#GET{id_article}}{tous}{pagination}{oembed!=''}{!par date}>
 					<div class="grid-item">
-						[(#MODELE{emb, id_document=#ID_DOCUMENT})]
+						<div class="video-container">
+							[(#MODELE{emb, id_document=#ID_DOCUMENT})]
+						</div>
+						<p class="titre-video">[(#CREDITS|textebrut|concat{' - ',#TITRE|textebrut}|couper{63})]</p>
+						<p class="credits-video"></p>
 						[(#FORMULAIRE_NOTATION)]
 					</div>
-				</BOUCLE_doc>
+					</BOUCLE_doc>
 				</div>
 				</B_doc>
 				<h2>Aucune vidéo dans l'article n°#GET{id_article}</h2>
