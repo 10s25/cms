@@ -1,7 +1,200 @@
-[(#REM) REDIRECTION VERS LA PAGE STATIQUE DE UNE
-
-]<html>
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-  <meta http-equiv="refresh" content="0; URL=/" />
+  <meta charset="utf-8">
+  <title>[(#NOM_SITE_SPIP|textebrut)]</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="Bloquons tout, Indignons-nous, 10 Septembre, 10 Septembre 2025">
+  <meta name="location" content="France, FRANCE">
+
+  <link rel="stylesheet" href="/global/global.css">
+  <link rel="stylesheet" href="/global/index.css">
+  <link rel="stylesheet" href="/local/slider_last_visuels.css">
+  <link rel="icon" href="/global/img/favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/favicon.ico" type="image/x-icon">
+  [(#REM)
+  RESEAUX SOCIAUX
+  ]
+  <!-- Réseaux sociaux -->
+  <meta property="og:title" content="Indignons Nous - Bloquons Tout - 10s25">
+  <meta property="og:description" content="Nous, peuple indigné de tous horizons, lançons un appel clair et urgent : Indignons-nous et bloquons tout jusqu’au retrait total et immédiat du plan Bayrou.">
+  <meta property="og:url" content="#URL_SITE_SPIP">
+  <meta property="og:image" content="[(#LOGO_SITE_SPIP|extraire_attribut{src}|url_absolue)]">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Indignons Nous - Bloquons Tout - 10s25">
+  <meta name="twitter:description" content="Nous, peuple indigné de tous horizons, lançons un appel clair et urgent : Indignons-nous et bloquons tout.">
+  [(#REM)
+  Balise permettant aux plugins d'inserer des appels javascript ;
+  4. C'est ici que SPIP va inserer l'appel de la librairie jQuery
+  5. Et appeler à la fin compacte_head pour agréger et compacter tout le head dans des fichiers statiques si l'option est cochée dans Configuration.
+  ]
+  #INSERT_HEAD
 </head>
+
+<body>
+<header id="banniere">
+  <a href="#URL_SITE_SPIP" title="Accueil">
+    <img id="logo_left" src="/global/img/logo-inbt.svg" alt="[(#NOM_SITE_SPIP|textebrut)]">
+  </a>
+  <div id="countdown-wrapper">
+    <div class="countdown">
+      <h4 id="countdown">Nous étions au moins <b>500 000</b>, le</h4>
+    </div>
+    <h1 class="font-yellow">10 Septembre 2025</h1>
+    <h4 id="ferie" class="background-red">Ils n'ont pas compris ? On continue !</h4>
+  </div>
+</header>
+
+<div id="menu_top">
+  <ul>
+    <li class="selected"><a href="/">&#8962;</a></li>
+    <INCLURE{fond=inc_menu}>
+    <li><a href="/global/sites.html">Sites</a></li>
+  </ul>
+</div>
+
+<main id="center">
+  <div id="sidebar">
+    <div id="visuels-récents" class="background-red">DERNIERS VISUELS</div>
+    <INCLURE{fond=slider_last_visuels}>
+    <div id="rejoindre" class="background-red">REJOINS-NOUS</div>
+    <INCLURE{fond=groupes}>
+  </div>
+
+  <div id="content">
+
+    <!-- 🧾 Bloc POST-IT d’intro -->
+    <section class="postit background-yellow">
+      <div class="postit-content font-black">
+        <p>Avec <b>au moins 500 000 personnes</b><sup>*</sup> sur tout le territoire, <b>le mouvement du 10 septembre entre dans l’histoire</b>.</p>
+
+        <p>Inédit par son ampleur et par sa forme, ce mouvement qui s’est auto-organisé en moins de deux mois s’est répandu partout.</p>
+
+        <p>Ni les mensonges, ni l’intimidation, ni la répression ne feront ralentir la vague qui s’est levée dans le pays.</p>
+
+        <p>Les assemblées locales appellent à poursuivre la lutte sous toutes ses formes.</p>
+
+        <p>Nous avons fait partir Bayrou. Lecornu et Macron attendent leur tour.</p>
+
+        <p>D'ici là nous ne rentrerons pas.</p>
+
+        <p><i><sup>*</sup>: nous avons déjà comptabilisé
+          <a href="https://docs.google.com/spreadsheets/d/1gdKPhSQiZcIawwzvxlyguyjEkt-E2U87-GtuVQ5sZyY/edit?gid=0#gid=0">428 556 personnes dans 345 communes</a> seulement,
+          et il y a eu au moins
+          <a href="https://www.20minutes.fr/societe/4172456-20250911-bloquons-tout-10-septembre-quelques-actions-blocages-jeudi-matin">850 actions en France</a>,
+          dont 596 rassemblements et 253 blocages, selon le ministère de l'intérieur.</i>
+        </p>
+
+        <h2>Les raisons de notre colère</h2>
+
+        <p>Le plan Bayrou, c’est :</p>
+        <ul>
+          <li class="revendication">Une année blanche sans investissement dans les salaires, les retraites, ni les services publics !</li>
+          <li class="revendication">3000 postes supprimés, un fonctionnaire sur trois non remplacé !</li>
+          <li class="revendication">5 milliards retirés à la santé, reste à payer doublé pour les malades !</li>
+          <li class="revendication"><strike>Deux jours fériés supprimés !</strike></li>
+          <li class="revendication">Six jours de carence en cas d’arrêt maladie !</li>
+          <li class="revendication">Aucune hausse des aides ni des pensions !</li>
+        </ul>
+
+        <p>Nous disons <strong>NON</strong> et appelons toutes les personnes résidant en France métropolitaine et dans les DOM-TOM à se mobiliser contre ce budget !</p>
+
+        <p>Nous ne voulons pas subir leur crise.<br>
+          Nous voulons changer de cap, pour de bon, avec et pour le peuple. Pas contre lui.
+        </p>
+
+        <div>
+          <p class="big">
+            <strong>NOUS APPELONS CHAQUE DÉPUTÉ À FAIRE SON DEVOIR :
+              <br>
+              <span class="font-red">VOTER LA MOTION DE CENSURE CONTRE CE PLAN INJUSTE ET DANGEREUX.</span></strong>
+          </p>
+
+          <div class="danger-banner">
+            <span class="emoji">⚠️</span>
+            <span class="text">
+              LES FRANÇAIS VOUS REGARDENT.<br>
+              ILS N’OUBLIERONT PAS.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Fin bloc postit -->
+
+    <br />
+    <h5 align="center">Groupes et actions annoncées</h5>
+
+    <div class="map">
+      <iframe width="100%" height="800px" allowfullscreen allow="geolocation"
+              src="https://umap.openstreetmap.fr/fr/map/indignons-nous_1261654?scaleControl=false&miniMap=false&scrollWheelZoom=false&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true"></iframe>
+      <p>
+        <a class="bouton" href="//umap.openstreetmap.fr/fr/map/indignons-nous_1261654?scaleControl=false&miniMap=false&scrollWheelZoom=true&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true">
+          Afficher la carte en plein écran
+        </a>
+      </p>
+      <p>Votre groupe local ou une action annoncée n'est pas sur la carte ? Cliquez <a href="/global/sites.html#groupes_info">ici</a>.</p>
+    </div>
+
+    <div class="aide">
+      <span class="fs-2">ℹ️</span>
+      L'utilisation de Télégram peut sembler un peu compliquée au début. Pour te guider, consulte notre
+      <a href="/global/pdf/TELEGRAM.pdf">guide d'aide</a>.
+    </div>
+
+    <div class="articles-recents">
+      <h3 class="titre-rubrique font-yellow">DERNIERS ARTICLES PUBLIÉS PAR LES GROUPES LOCAUX</h3>
+      <INCLURE{fond=last_articles}>
+    </div>
+
+    <div class="articles-recents">
+      <h3 class="titre-rubrique font-yellow">DERNIÈRES VIDÉOS PUBLIÉES PAR LES INDIGNÉS</h3>
+      <INCLURE{fond=slider_last_videos}>
+    </div>
+
+  </div>
+</main>
+
+<div id="footer">
+  <section class="postit background-yellow font-black">
+    <div>
+      <h2>Communications sécurisées</h2>
+      <p>
+        Nos communications sont sécurisées par GPG: nos emails sont signés numériquement.
+        <br>
+        Si vous voulez vous assurer de l'authenticité des mails reçus, configurez votre logiciel de
+        messagerie pour reconnaître les mails envoyés avec la clé privée associée à la clé publique
+        ci-dessous.
+      </p>
+      <h3>C'est quoi, GPG ?</h3>
+      <p>
+        Vous trouverez un tutoriel en français <a href="https://linuxfr.org/news/bien-demarrer-avec-gnupg" class="font-yellow">ici</a>.
+        <br>
+        Les emails que vous nous envoyez chiffrés avec notre clé
+        publique ne sont pas déchiffrables par un tiers.
+        <br>
+        <i>C'est l'équivalent numérique d'une enveloppe
+          fermée comparée à une carte postale que tout le monde peut lire.</i>
+      </p>
+      <h3>Notre clé publique :</h3>
+      <p class="break-word background-black">
+        <code class="font-green">
+          <INCLURE{fond=inclure/gpg}>
+        </code>
+      </p>
+      <h4>Mails :</h4>
+      <p><INCLURE{fond=inclure/emails}></p>
+    </div>
+  </section>
+</div>
+[(#CHEMIN{inc_js_slider_visuels.js.html}|oui)
+<script src="[(#URL_PAGE{inc_js_slider_visuels.js}|parametre_url{v,[(#DATE|strtotime)]})]" defer></script>
+]
+
+
+<script src="/global/js/slider_last_visuels.js?v=#ENV{id_article,0}" defer></script>
+
+
+</body>
 </html>

@@ -1,0 +1,12 @@
+[(#HTTP_HEADER{Content-Type: text/javascript; charset=utf-8})]
+/* JS propre pour slider visuels */
+document.addEventListener('DOMContentLoaded', function() {
+if (window.jQuery && jQuery.fn.mediabox) {
+jQuery('a.mediabox').mediabox();
+}
+document.addEventListener('ssi:loaded', function() {
+if (window.jQuery && jQuery.fn.mediabox) {
+jQuery('a.mediabox').mediabox();
+}
+});
+});
