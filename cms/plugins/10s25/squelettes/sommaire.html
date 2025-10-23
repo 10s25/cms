@@ -38,10 +38,11 @@
     <img id="logo_left" src="/global/img/logo-inbt.svg" alt="[(#NOM_SITE_SPIP|textebrut)]">
   </a>
   <div id="countdown-wrapper">
-    <div class="countdown">
-      <h4 id="countdown">Nous étions au moins <b>500 000</b>, le</h4>
-    </div>
-    <h1 class="font-yellow">10 Septembre 2025</h1>
+    <div class="countdown"><h4 id="countdown">A parti du 10 Novembre 2025</h4></div>
+    <br/>
+    <h1 class="font-yellow">ACTE 2 - SEMAINE NOIRE</h1>
+    <h1 class="font-yellow">10N25 -> 15N25</h1>
+    <br/>
     <h4 id="ferie" class="background-red">Ils n'ont pas compris ? On continue !</h4>
   </div>
 </header>
@@ -191,10 +192,7 @@
 [(#CHEMIN{inc_js_slider_visuels.js.html}|oui)
 <script src="[(#URL_PAGE{inc_js_slider_visuels.js}|parametre_url{v,[(#DATE|strtotime)]})]" defer></script>
 ]
-
-
 <script src="/global/js/slider_last_visuels.js?v=#ENV{id_article,0}" defer></script>
-
-
+<script src="/global/js/countdown.js"></script>
 </body>
 </html>
