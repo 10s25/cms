@@ -1,23 +1,41 @@
 [(#REM)
-
 Liste récursive des groupes de la rubrique parente
+Avec accordéons fermés par défaut et ouverture unique (radio par niveau)
+]
+<B_groupes>
+	<ul class="liste_groupes css-accordion">
+		<BOUCLE_groupes(RUBRIQUES){id_parent}>
+		<li>
+			<!-- Chaque niveau a son propre groupe radio -->
+			<input id="tab-#ID_RUBRIQUE" type="radio" name="accordeon-#ID_PARENT" style="display:none;">
+			<label for="tab-#ID_RUBRIQUE">
+				<a href="#URL_SITE_SPIP/#URL_RUBRIQUE">#TITRE</a>
+			</label>
 
-(l'indentation "étrange" génère un html à peu près lisible)
-
-]<B_groupes>
-<ul class="liste_groupes css-accordion"><BOUCLE_groupes(RUBRIQUES){id_parent}{par num titre}>
-	<li>
-		<input id="tab-#ID_RUBRIQUE" type="checkbox">
-		<label for="tab-#ID_RUBRIQUE"><a href="#URL_SITE_SPIP/#URL_RUBRIQUE">#TITRE</a></label>
-		<B_type><div class="content">
-			<ul><BOUCLE_type(MOTS){id_groupe=4}>#SET{rs_icon,#DESCRIPTIF*}#SET{titre_mot,#TITRE*}<B_sites>
-				<li class="[(#GET{rs_icon}|trim)]">
-					<p>#TITRE</p>
-					<ul><BOUCLE_sites(SITES){id_rubrique}{id_mot}>
-						<li><a href="#URL_SITE" target="_blank" rel="me">[(#NOM_SITE|substr{0,30})]</a></li></BOUCLE_sites>
+			<div class="content">
+				<B_type>
+					<ul>
+						<BOUCLE_type(MOTS){id_groupe=4}>
+						#SET{rs_icon,#DESCRIPTIF*}
+						#SET{titre_mot,#TITRE*}
+						<B_sites>
+							<li class="[(#GET{rs_icon}|trim)]">
+								<p>#TITRE</p>
+								<ul>
+									<BOUCLE_sites(SITES){id_rubrique}{id_mot}>
+									<li><a href="#URL_SITE" target="_blank" rel="me">[(#NOM_SITE|substr{0,30})]</a></li>
+									</BOUCLE_sites>
+								</ul>
+							</li>
+						</B_sites>
+						</BOUCLE_type>
 					</ul>
-				</li></B_sites></BOUCLE_type>
-			</ul>
-		</div></B_type>
-	<BOUCLE_sous-groupes(BOUCLE_groupes) /></li></BOUCLE_groupes>
-</ul></B_groupes>
+				</B_type>
+
+				<!-- Sous-groupes -->
+				<BOUCLE_sous-groupes(BOUCLE_groupes) />
+			</div>
+		</li>
+		</BOUCLE_groupes>
+	</ul>
+</B_groupes>

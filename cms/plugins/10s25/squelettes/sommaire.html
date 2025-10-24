@@ -57,12 +57,20 @@
 
 <main id="center">
   <div id="sidebar">
+    <div class="accordion-section">
+      <input type="checkbox" id="rejoins-toggle" hidden>
+      <label for="rejoins-toggle" id="rejoindre" class="background-red">
+        REJOINS-NOUS
+      </label>
+
+      <div class="accordion-content">
+        <INCLURE{fond=groupes}>
+      </div>
+    </div>
     <div id="visuel-a-la-une" class="background-red">VISUEL A LA UNE</div>
     <INCLURE{fond=visuel_a_la_une}>
     <div id="visuels-recents" class="background-red">DERNIERS VISUELS</div>
     <INCLURE{fond=slider_last_visuels}>
-    <div id="rejoindre" class="background-red">REJOINS-NOUS</div>
-    <INCLURE{fond=groupes}>
   </div>
 
   <div id="content">
@@ -152,7 +160,7 @@
     </div>
 
     <div class="articles-recents">
-      <h3 class="titre-rubrique font-yellow">🎬 LA VIDEO QUI VOUS PLAIT LE PLUS</h3>
+      <h3 class="titre-rubrique font-yellow">⭐ LA VIDEO QUI VOUS PLAIT LE PLUS</h3>
       <INCLURE{fond=video_a_la_une}>
     </div>
 
