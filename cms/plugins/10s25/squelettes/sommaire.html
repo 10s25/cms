@@ -57,7 +57,9 @@
 
 <main id="center">
   <div id="sidebar">
-    <div id="visuels-récents" class="background-red">DERNIERS VISUELS</div>
+    <div id="visuel-a-la-une" class="background-red">VISUEL A LA UNE</div>
+    <INCLURE{fond=visuel_a_la_une}>
+    <div id="visuels-recents" class="background-red">DERNIERS VISUELS</div>
     <INCLURE{fond=slider_last_visuels}>
     <div id="rejoindre" class="background-red">REJOINS-NOUS</div>
     <INCLURE{fond=groupes}>
@@ -150,7 +152,12 @@
     </div>
 
     <div class="articles-recents">
-      <h3 class="titre-rubrique font-yellow">DERNIÈRES VIDÉOS PUBLIÉES PAR LES INDIGNÉS</h3>
+      <h3 class="titre-rubrique font-yellow">🎬 LA VIDEO QUI VOUS PLAIT LE PLUS</h3>
+      <INCLURE{fond=video_a_la_une}>
+    </div>
+
+    <div class="articles-recents">
+      <h3 class="titre-rubrique font-yellow">🎬 DERNIÈRES VIDÉOS PUBLIÉES PAR LES INDIGNÉS</h3>
       <INCLURE{fond=slider_last_videos}>
     </div>
 
