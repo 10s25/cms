@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Inscription – [(#NOM_SITE_SPIP|textebrut)]</title>
+    <INCLURE{fond=inclure/static_head}>
+    <link rel="stylesheet" href="/local/formulaire_inscription.css" />
+</head>
+<body class="page-inscription">
+<INCLURE{fond=inclure/header}>
+
+<main class="conteneur-formulaire">
+    [(#FORMULAIRE_INSCRIPTION{#ENV{mode}|sinon{1comite}})]
+</main>
+
+</body>
+</html>
