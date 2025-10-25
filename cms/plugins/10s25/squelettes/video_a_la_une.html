@@ -47,7 +47,7 @@
         const items = [...wrap.querySelectorAll('.video-item')];
         if (items.length === 0) return;
 
-        // 🥇 Trouver la vidéo la mieux notée
+        // Trouver la vidéo la mieux notée
         items.sort((a, b) => parseFloat(b.dataset.note || 0) - parseFloat(a.dataset.note || 0));
 
         // Supprimer toutes les autres
