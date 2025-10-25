@@ -22,8 +22,8 @@
     [(#GET{n}|>{0}|oui)#SET{avg,#GET{sum}|div{#GET{n}}}]
 
     <BOUCLE_aff(CONDITION){si #GET{n}|>{0}}>
-    <div class="visuel-item" data-note="[(#GET{avg})]">
-        <div class="note">
+    <div class="visuel-item" data-note="[(#GET{avg})]" data-votes="[(#GET{n})]">
+    <div class="note">
             ⭐ [(#GET{avg}|round{1})]/5 <small>([(#GET{n})] vote[s])</small>
         </div>
         <a href="#URL_DOCUMENT" class="mediabox visuel" rel="visuels" title="[(#TITRE|attribut_html)]">
@@ -46,15 +46,24 @@
         const items = [...wrap.querySelectorAll('.visuel-item')];
         if (items.length === 0) return;
 
-        // 🥇 Trouver le visuel le mieux noté
-        items.sort((a, b) => parseFloat(b.dataset.note || 0) - parseFloat(a.dataset.note || 0));
+        // 🥇 Trier d'abord par note, puis par nombre de votes
+        items.sort((a, b) => {
+            const noteA = parseFloat(a.dataset.note || 0);
+            const noteB = parseFloat(b.dataset.note || 0);
+            const votesA = parseInt(a.dataset.votes || 0);
+            const votesB = parseInt(b.dataset.votes || 0);
 
-        // Supprimer toutes les autres
+            // On trie d'abord par note décroissante, puis par nombre de votes décroissant
+            if (noteB !== noteA) return noteB - noteA;
+            return votesB - votesA;
+        });
+
+        // On garde uniquement le premier (meilleur selon les deux critères)
         for (let i = 1; i < items.length; i++) {
             items[i].remove();
         }
 
-        // S'assurer que le meilleur est affiché en premier
         wrap.appendChild(items[0]);
     });
 </script>
+
