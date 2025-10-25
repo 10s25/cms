@@ -1,0 +1,72 @@
+[(#REM) --- ARTICLE À LA UNE (version finale propre) ---]
+<head>
+    <INCLURE{fond=inclure/static_head}
+    {css=/local/article_a_la_une.css}>
+</head>
+
+<B_articles>
+    <div class="article_a_la_une">
+        <BOUCLE_articles(ARTICLES)
+        {statut=publie}
+        {id_secteur != 461}
+        {id_secteur != 3}
+        {!titre_mot=Rassemblement}
+        {!titre_mot=Action}
+        {!titre_mot=Formation}
+        {!titre_mot=Cantine}
+        {!titre_mot=Manif}
+        {!titre_mot=Grève}
+        {!titre_mot=Assemblée populaire}
+        {0,50}>
+
+        #SET{sum,0}
+        #SET{n,0}
+
+        <BOUCLE_votes(NOTATIONS){objet=article}{id_objet=#ID_ARTICLE}>
+        #SET{sum,#GET{sum}|plus{#NOTE}}
+        #SET{n,#GET{n}|plus{1}}
+        </BOUCLE_votes>
+
+        <BOUCLE_aff(CONDITION){si #GET{n}|>{0}}>
+        #SET{avg,#GET{sum}|div{#GET{n}}}
+        <div class="apercu-article-a-la-une" data-note="[(#GET{avg})]">
+            <a href="#URL_SITE_SPIP/#URL_ARTICLE" class="bloc-article">
+                [(#LOGO_ARTICLE|image_reduire{150,10000}|inserer_attribut{height,''})]
+                <div class="contenu-article">
+                    <strong>#TITRE</strong><br>
+                    <span class="small">[(#DATE|affdate)]</span>
+                    <div class="note">
+                        ❤️ [(#GET{avg}|round{1})]/5
+                        <small>([(#GET{n})] vote[s])</small>
+                    </div>
+                </div>
+            </a>
+
+            <div class="texte-complet">
+                [(#TEXTE|image_reduire{800,*}|liens_absolus|traiter_modeles{article,#ID_ARTICLE}|propre)]
+            </div>
+
+        </div>
+        </BOUCLE_aff>
+        </BOUCLE_articles>
+    </div>
+</B_articles>
+
+<p class="rien">Aucun article noté pour le moment.</p>
+
+<//B_articles>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const wrap = document.querySelector('.article_a_la_une');
+        if (!wrap) return;
+
+        const items = [...wrap.querySelectorAll('.article-item')];
+        if (items.length === 0) return;
+
+        // 🥇 Trier par note décroissante et ne garder que le meilleur
+        items.sort((a, b) => parseFloat(b.dataset.note || 0) - parseFloat(a.dataset.note || 0));
+        for (let i = 1; i < items.length; i++) items[i].remove();
+        wrap.appendChild(items[0]);
+    });
+</script>
