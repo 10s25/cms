@@ -8,9 +8,8 @@
     <BOUCLE_videos(DOCUMENTS)
     {extension IN html,mp4,webm,ogv}
     {oembed!=''}
-    {inverse}
-    {statut==publie}
-    {0,50}>
+    {!par date}
+    {statut==publie}>
 
     #SET{sum,0}
     #SET{n,0}
@@ -22,17 +21,22 @@
     #SET{avg,0}
     [(#GET{n}|>{0}|oui)#SET{avg,#GET{sum}|div{#GET{n}}}]
 
+    <BOUCLE_notepond(NOTATIONS_OBJETS){objet=document}{id_objet=#ID_DOCUMENT}>
+    #SET{note_ponderee, #NOTE_PONDEREE}
+    </BOUCLE_notepond>
+
     <BOUCLE_aff(CONDITION){si #GET{n}|>{0}}>
     <div class="video-item"
-         data-note="[(#GET{avg})]"
+         data-note-ponderee="[(#GET{note_ponderee})]"
          data-votes="[(#GET{n})]">
+
 
         <div class="video-container">
             [(#MODELE{emb,id_document=#ID_DOCUMENT, async=non,largeur=800,hauteur=450})]
         </div>
 
         <div class="note">
-            ⭐ [(#GET{avg}|round{1})]/5
+            ⭐ [(#GET{note_ponderee}|round{1})]/5
             <small>([(#GET{n})] vote[s])</small>
         </div>
     </div>
@@ -52,10 +56,10 @@
         const items = [...wrap.querySelectorAll('.video-item')];
         if (items.length === 0) return;
 
-        // 🥇 Tri combiné : meilleure note, puis plus de votes
+        // 🥇 Tri : meilleure note pondérée, puis plus de votes
         items.sort((a, b) => {
-            const noteA = parseFloat(a.dataset.note || 0);
-            const noteB = parseFloat(b.dataset.note || 0);
+            const noteA = parseFloat(a.dataset.notePonderee || 0);
+            const noteB = parseFloat(b.dataset.notePonderee || 0);
             const votesA = parseInt(a.dataset.votes || 0);
             const votesB = parseInt(b.dataset.votes || 0);
 
