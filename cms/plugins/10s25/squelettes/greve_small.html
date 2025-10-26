@@ -1,0 +1,22 @@
+[(#REM)
+Compteur de grévistes
+]
+<head>
+    <INCLURE{fond=inclure/static_head}
+    {css=/local/greve.css}>
+</head>
+
+<div class="compteur-greve">
+
+    <div class="nombre-grevistes">
+        [(#VAL{#EVAL{_DIR_TMP}|concat{'greve.txt'}}|file_get_contents|intval)]
+    </div>
+
+    <h1>GREVISTES</h1>
+
+    <a href="[(#URL_PAGE{greve}|url_absolue)]" class="lien-page">Participer</a>
+
+    [(#ENV{ok}|oui)<p class="merci">Merci pour ton engagement collectif 💪</p>]
+    [(#ENV{deja}|oui)<p class="deja">Tu es déjà compté·e ✊</p>]
+
+</div>
