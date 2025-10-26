@@ -97,7 +97,12 @@
 						<div class="menu menu_rubriques accordion">
 							<BOUCLE_sous_rubriques2(RUBRIQUES) {id_parent} {par num titre}{!par date}>
 							<details [(#ID_RUBRIQUE|=={#ENV{id_rubrique}}|oui)open]>
-								<summary>#TITRE</summary>
+								[(#ID_PARENT|=={461}|oui)
+								<summary class="first">#TITRE</summary>
+								]
+								[(#ID_PARENT|=={461}|non)
+								<summary class="second"><a href="#URL_RUBRIQUE">#TITRE</a></summary>
+								]
 								<B_miniplan2>
 									<ul>
 										<BOUCLE_miniplan2(RUBRIQUES) {id_parent} {par num titre}{!par date}>
