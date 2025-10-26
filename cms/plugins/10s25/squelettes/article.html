@@ -5,11 +5,7 @@
 <!DOCTYPE html>
 <html dir="#LANG_DIR" lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js">
 <head>
-<INCLURE{fond=inclure/head}
-{css=/local/visuels.css}
-{keywords=#GET{keywords}}
-{rs_titre=#GET{rs_titre}}
-{rs_desc=#GET{rs_desc}}>
+	<INCLURE{fond=inclure/head, id_article, env, css=/local/visuels.css}>
 </head>
 <body>
 	<INCLURE{fond=inclure/header}{titre_page=#TITRE|couper{30}}{logo_right=#LOGO_ARTICLE}>

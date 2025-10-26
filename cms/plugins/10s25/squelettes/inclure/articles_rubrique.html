@@ -1,0 +1,26 @@
+#CACHE{0}
+<B_articles>
+    #ANCRE_PAGINATION
+    [<nav class="pagination">(#PAGINATION)</nav>]
+    <ul>
+        <BOUCLE_articles(ARTICLES)
+        {id_rubrique}
+        {pagination 20}
+        {!par date}>
+        <BOUCLE_type_article(MOTS){id_article}>
+        <BOUCLE_groupes_mots(GROUPES_MOTS){id_groupe}>
+        [(#ID_GROUPE|=={3}|oui)#SET{url_page_speciale,?page=action&id_article=#ID_ARTICLE}]
+        </BOUCLE_groupes_mots>
+        </BOUCLE_type_article>
+        <li dir="#LANG_DIR" class="article_list-item hentry clearfix text-#LANG_LEFT">
+            <div style="float: right;">[(#FORMULAIRE_NOTATION)]</div>
+            <strong>
+                <a href="[(#GET{url_page_speciale}|sinon{#URL_ARTICLE})]">
+                    [(#LOGO_ARTICLE_RUBRIQUE|image_reduire{50,*}) ]#TITRE
+                </a>
+            </strong>
+        </li>
+        </BOUCLE_articles>
+    </ul>
+    [<nav class="pagination">(#PAGINATION)</nav>]
+</B_articles>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Compteur de grévistes – [(#NOM_SITE_SPIP)]</title>
+    <INCLURE{fond=inclure/static_head}>
+    <link rel="stylesheet" href="/local/greve.css" />
+</head>
+
+<body class="page-greve">
+<INCLURE{fond=inclure/header}>
+
+<main class="compteur-greve">
+    <h1>✊ Compteur de grévistes</h1>
+
+    <div class="nombre-grevistes">
+        [(#VAL{#EVAL{_DIR_TMP}|concat{'greve.txt'}}|file_get_contents|intval)]
+    </div>
+
+    <form method="post" action="#SELF" class="form-greve">
+        <input type="hidden" name="action" value="greve">
+        <button type="submit">Je serai en grève ✊</button>
+    </form>
+
+    [(#ENV{ok}|oui)<p class="merci">Merci pour ton engagement collectif 💪</p>]
+    [(#ENV{deja}|oui)<p class="deja">Tu es déjà compté·e ✊</p>]
+
+</main>
+
+<INCLURE{fond=inclure/footer}>
+</body>
+</html>

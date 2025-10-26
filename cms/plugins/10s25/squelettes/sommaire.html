@@ -32,7 +32,7 @@
   #INSERT_HEAD
 </head>
 
-<body>
+<body class="page-accueil">
 <header id="banniere">
   <a href="#URL_SITE_SPIP" title="Accueil">
     <img id="logo_left" src="/global/img/logo-inbt.svg" alt="[(#NOM_SITE_SPIP|textebrut)]">
@@ -69,6 +69,8 @@
     </div>
     <div id="visuel-a-la-une" class="background-red">VISUEL A LA UNE</div>
     <INCLURE{fond=visuel_a_la_une}>
+    <div id="compteurs" class="background-red">COMPTEURS</div>
+    <INCLURE{fond=greve_small}>
     <div id="visuels-recents" class="background-red">DERNIERS VISUELS</div>
     <INCLURE{fond=slider_last_visuels}>
   </div>
@@ -158,7 +160,7 @@
     </div>
 
     <div class="articles-recents">
-      <h3 class="titre-rubrique font-yellow">⭐ L'ARTICLE QUI VOUS PLAIT LE PLUS</h3>
+      <h3 class="titre-rubrique font-yellow">⭐ L'ARTICLE QUE VOUS METTEZ A LA UNE</h3>
       <INCLURE{fond=article_a_la_une}>
     </div>
 
