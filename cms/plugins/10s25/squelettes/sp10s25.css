@@ -133,10 +133,25 @@ div#form_ajout_doleance .btn {
 	font-size: 0.9rem;
 }
 li.article_list-item {
-	background: #ffffaf;
-	padding: 0 5px 0 5px;
+	background: #000000;
+	color: #f2e25b;
+	padding: 5px 10px;
 	border-radius: 5px;
+	cursor: pointer;
 }
+li.article_list-item:hover {
+	background: #222;
+}
+li.article_list-item a {
+	color: #f2e25b!important;
+	font-weight: 600;
+}
+
+li.article_list-item a:hover {
+	color: #f2e25b!important;
+	text-shadow: unset;
+}
+
 div.date_article {
 	float: right;
 	margin-left: 15px;
